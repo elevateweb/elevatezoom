@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.1.0
+ *	jQuery elevateZoom 2.1.1
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -205,11 +205,10 @@ if ( typeof Object.create !== 'function' ) {
 				//create the div's
 				//self.zoomContainer = $('<div/>').addClass('zoomContainer').css({"position":"relative", "height":self.nzHeight, "width":self.nzWidth});
 
-				self.zoomContainer = $('<div class="zoomContainer" style="position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>')
-				.appendTo(self.$elem);
+				self.zoomContainer = $('<div class="zoomContainer" style="position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
 				self.$elem.after(self.zoomContainer);	
 
-        
+
 				//this will add overflow hidden and contrain the lens on lens mode       
 				if(self.options.containLensZoom && self.options.zoomType == "lens"){
 					self.zoomContainer.css("overflow", "hidden");
@@ -223,7 +222,7 @@ if ( typeof Object.create !== 'function' ) {
 				}
 
 
-                    
+
 				if(self.options.tint) {
 					self.tintContainer = $('<div/>').addClass('tintContainer');	
 					self.zoomTint = $("<div class='zoomTint' style='"+self.tintStyle+"'></div>");
@@ -284,8 +283,8 @@ if ( typeof Object.create !== 'function' ) {
 				}
 				/*-------------------END THE ZOOM WINDOW AND LENS----------------------------------*/
 
-       //Needed to work in IE
-    		self.$elem.bind('mousemove', function(e){
+				//Needed to work in IE
+				self.$elem.bind('mousemove', function(e){
 					self.setPosition(e);
 				});  	
 
@@ -312,7 +311,7 @@ if ( typeof Object.create !== 'function' ) {
 
 				//  lensFadeOut: 500,  zoomTintFadeIn
 				self.zoomContainer.mouseenter(function(){
-        
+
 					if(self.options.zoomType == "inner") {
 						if(self.options.zoomWindowFadeIn){        
 							self.zoomWindow.stop(true, true).fadeIn(self.options.zoomWindowFadeIn);
@@ -359,7 +358,7 @@ if ( typeof Object.create !== 'function' ) {
 				//end ove image
 
 				self.$elem.mouseenter(function(){
-        
+
 					if(self.options.zoomType == "inner") {
 						if(self.options.zoomWindowFadeIn){        
 							self.zoomWindow.stop(true, true).fadeIn(self.options.zoomWindowFadeIn);
@@ -479,7 +478,7 @@ if ( typeof Object.create !== 'function' ) {
 			},
 
 			setPosition: function(e) {
-            
+
 				var self = this;
 
 
@@ -764,10 +763,47 @@ if ( typeof Object.create !== 'function' ) {
 							// return -c *(t/=d)*(t-2) + b;//easeoutquad
 							return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;     //ease out expo
 						}; 
-						self.zoomWindow.animate({
-							'background-position-x': self.windowLeftPos,
-							'background-position-y': self.windowTopPos
-						},{queue:false,duration:self.options.easingDuration,easing:'zoomsmoothmove'});
+						//if mozilla, it doesnt work on x/y background position
+						if($.browser.mozilla){
+							var bgpos = 'background-position', cc = $.camelCase;
+							function normalize(value) {
+								var h = '100%', z = '0px', options = {top : z, bottom: h, left: z, right: h};
+								return options[value] || value;
+							}
+							$.each(['x', 'y'], function (i, v) {
+								var camelCase = cc(bgpos + '-' + v);
+								$.cssHooks[camelCase] = {
+										get: function (elem) {
+											var pos = $.css(elem, bgpos).split(/\s+/, 2);
+											return normalize(pos[i]);
+										},
+										set: function (elem, value) {
+											var pos = $.css(elem, bgpos).split(/\s+/, 2);
+											pos[i] = normalize(value);
+											$.style(elem, bgpos, pos.join(' '));
+										}
+								};
+								$.fx.step[camelCase] = function (fx) {
+									$.style(fx.elem, fx.prop, fx.now);
+								};
+							});
+							//
+							self.zoomWindow.stop().animate({
+								backgroundPositionY: self.windowTopPos,
+								backgroundPositionX: self.windowLeftPos
+							},{queue:false,duration:self.options.easingDuration,easing:'zoomsmoothmove'});
+
+						}
+						//do split easing
+						else {
+
+
+							self.zoomWindow.animate({
+								'background-position-x': self.windowLeftPos,
+								'background-position-y': self.windowTopPos
+							},{queue:false,duration:self.options.easingDuration,easing:'zoomsmoothmove'});
+
+						}
 					}
 					else{
 						self.zoomWindow.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });       
@@ -958,7 +994,7 @@ if ( typeof Object.create !== 'function' ) {
 
 	$.fn.elevateZoom.options = {
 			easing: false,
-      easingType: 'zoomdefault',
+			easingType: 'zoomdefault',
 			easingDuration: 2000,
 			lensSize: 200,
 			zoomWindowWidth: 400,
