@@ -22,7 +22,7 @@
     "homepage": "http://www.elevateweb.co.uk/image-zoom",
     "docs": "http://www.elevateweb.co.uk/image-zoom/examples",
     "bugs": "https://github.com/elevateweb/elevatezoom/issues",
-    "download": "http://www.elevateweb.co.uk/wp-content/plugins/download-monitor/download.php?id=1",
+    "download": "https://github.com/elevateweb/elevatezoom/archive/master.zip",
     "dependencies": {
         "jquery": ">=1.4.3"
     }
