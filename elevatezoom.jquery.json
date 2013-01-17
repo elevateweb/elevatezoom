@@ -4,9 +4,9 @@
     "title": "elevatezoom.js",
     "description": "A jQuery image zoom plugin, with tints, easing and gallery integration.",
     "keywords": [
-        "image zoom",
+        "image-zoom",
         "zoom",
-        "inner zoom"
+        "inner-zoom"
     ],
     "author": {
         "name": "Andy Eades",
