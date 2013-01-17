@@ -1,0 +1,29 @@
+{
+    "name": "elevateZoom",
+    "version": "2.1.1",
+    "title": "elevateZoom.js",
+    "description": "A jQuery image zoom plugin, with tints, easing and gallery integration.",
+    "keywords": [
+        "image zoom",
+        "zoom",
+        "inner zoom"
+    ],
+    "author": {
+        "name": "Andy Eades",
+        "email": "andy.eades@elevateweb.co.uk",
+        "url": "http://www.elevateweb.co.uk"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/jquery/jquery-color/blob/2.1.2/MIT-LICENSE.txt"
+        }
+    ],
+    "homepage": "http://www.elevateweb.co.uk/image-zoom",
+    "docs": "http://www.elevateweb.co.uk/image-zoom/examples",
+    "bugs": "https://github.com/elevateweb/elevatezoom/issues",
+    "download": "http://www.elevateweb.co.uk/wp-content/plugins/download-monitor/download.php?id=1",
+    "dependencies": {
+        "jquery": ">=1.4.3"
+    }
+}
