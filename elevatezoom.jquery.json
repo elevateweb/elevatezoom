@@ -1,29 +1,24 @@
 {
     "name": "elevateZoom",
-    "version": "2.1.1",
-    "title": "elevatezoom.js",
-    "description": "A jQuery image zoom plugin, with tints, easing and gallery integration.",
-    "keywords": [
-        "image-zoom",
-        "zoom",
-        "inner-zoom"
-    ],
-    "author": {
-        "name": "Andy Eades",
-        "email": "andy.eades@elevateweb.co.uk",
-        "url": "http://www.elevateweb.co.uk"
-    },
-    "licenses": [
-        {
-          "type": "MIT",
-          "url": "http://www.opensource.org/licenses/mit-license.php"
-        }
-    ],
-    "homepage": "http://www.elevateweb.co.uk/image-zoom",
-    "docs": "http://www.elevateweb.co.uk/image-zoom/examples",
-    "bugs": "https://github.com/elevateweb/elevatezoom/issues",
-    "download": "https://github.com/elevateweb/elevatezoom/archive/master.zip",
-    "dependencies": {
-        "jquery": ">=1.4.3"
-    }
+	"title": "elevateZoom",
+	"description": "A jQuery image zoom plugin, with tints, easing and gallery integration.",
+	"keywords": [
+		"zoom",
+		"images",
+		"ui"
+	],
+	"version": "2.1.1",
+	"author": {
+		"name": "Andy Eades",
+		"url": "http://www.elevateweb.co.uk"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/mit-license.php"
+		}
+	],
+	"homepage": "http://www.elevateweb.co.uk/image-zoom",
+	"demo": "http://www.elevateweb.co.uk/image-zoom/examples",
+	"dependencies": { "jquery": ">=1.4" }
 }
