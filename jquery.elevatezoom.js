@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.1.1
+ *	jQuery elevateZoom 2.2.0
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -175,7 +175,7 @@ if ( typeof Object.create !== 'function' ) {
 				self.tintStyle = "display: block;"
 					+ "position: absolute;"
 					+ "background-color: "+self.options.tintColour+";"	
-          + "filter:alpha(opacity=0);"		
+					+ "filter:alpha(opacity=0);"		
 					+ "opacity: 0;"	
 					+ "width: " + self.nzWidth + "px;"
 					+ "height: " + self.nzHeight + "px;"
@@ -285,6 +285,16 @@ if ( typeof Object.create !== 'function' ) {
 					self.zoomWindow.css({ backgroundImage: "url('" + self.imageSrc + "')" }); 
 				}
 				/*-------------------END THE ZOOM WINDOW AND LENS----------------------------------*/
+				//touch events
+				self.zoomContainer.bind('touchmove', function(e){ 
+					e.preventDefault();
+					var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
+					self.setPosition(touch); 
+				});  	
+				self.zoomContainer.bind('touchend', function(e){ 
+					self.zoomWindow.hide();
+					if(self.options.showLens) {self.zoomLens.hide();}
+				});  	
 
 				//Needed to work in IE
 				self.$elem.bind('mousemove', function(e){
@@ -967,7 +977,7 @@ if ( typeof Object.create !== 'function' ) {
 
 
 					});
-				}
+				}                                                       
 				//if no gallery - return current image
 				else{
 					self.gallerylist.push({
