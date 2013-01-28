@@ -86,6 +86,8 @@ if ( typeof Object.create !== 'function' ) {
 					//once image is loaded start the calls
 					self.startZoom();
 					self.currentImage = self.imageSrc;
+					//let caller know image has been loaded
+					self.options.onZoomedImageLoaded();
 				}
 				newImg.src = imgsrc; // this must be done AFTER setting onload
 
@@ -1025,7 +1027,8 @@ if ( typeof Object.create !== 'function' ) {
 			tintOpacity: 0.4, //opacity of the tint
 			gallery: false,
 			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
-			onComplete: $.noop
+			onComplete: $.noop,
+			onZoomedImageLoaded: function() {}
 	};
 
 })( jQuery, window, document );
