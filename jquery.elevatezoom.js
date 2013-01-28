@@ -174,7 +174,8 @@ if ( typeof Object.create !== 'function' ) {
 				//tint style
 				self.tintStyle = "display: block;"
 					+ "position: absolute;"
-					+ "background-color: "+self.options.tintColour+";"			
+					+ "background-color: "+self.options.tintColour+";"	
+          + "filter:alpha(opacity=0);"		
 					+ "opacity: 0;"	
 					+ "width: " + self.nzWidth + "px;"
 					+ "height: " + self.nzHeight + "px;"
