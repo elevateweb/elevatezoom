@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.2.0
+ *	jQuery elevateZoom 2.2.1
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -540,6 +540,26 @@ if ( typeof Object.create !== 'function' ) {
 					self.zoomTint.css({ top: 0});
 					self.zoomTint.css({ left: 0});
 				}
+				//set responsive       
+//				will checking if the image needs changing before running this code work faster?
+				if(self.options.responsive){
+					if(self.nzHeight < self.options.zoomWindowWidth/self.widthRatio){
+						lensHeight = self.nzHeight;              
+					}
+					else{
+						lensHeight = String((self.options.zoomWindowHeight/self.heightRatio))
+					}
+					if(self.largeWidth < self.options.zoomWindowWidth){
+						lensWidth = self.nzHWidth;
+					}       
+					else{
+						lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
+					}
+					self.widthRatio = self.largeWidth / self.nzWidth;
+					self.heightRatio = self.largeHeight / self.nzHeight; 
+					self.zoomLens.css({ width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px', height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' }) 
+//					end responsive image change
+				}
 
 				//container fix
 				self.zoomContainer.css({ top: self.nzOffset.top});
@@ -1073,6 +1093,7 @@ if ( typeof Object.create !== 'function' ) {
 			tintOpacity: 0.4, //opacity of the tint
 			gallery: false,
 			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
+			responsive:false,
 			onComplete: $.noop,
 			onZoomedImageLoaded: function() {}
 	};
