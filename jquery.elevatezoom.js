@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.2.1
+ *	jQuery elevateZoom 2.2.2
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -333,29 +333,56 @@ if ( typeof Object.create !== 'function' ) {
 				}
 				//Needed to work in IE
 				self.$elem.bind('mousemove', function(e){
-					self.setPosition(e);
+					//make sure on orientation change the setposition is not fired
+					if(self.lastX !== e.clientX || self.lastY !== e.clientY){
+						self.setPosition(e);
+					}   
+					self.lastX = e.clientX;
+					self.lastY = e.clientY;    
+
 				});  	
 
-				self.zoomContainer.bind('mousemove', function(e){
-					self.setPosition(e);
+				self.zoomContainer.bind('mousemove', function(e){  
+					//make sure on orientation change the setposition is not fired 
+					if(self.lastX !== e.clientX || self.lastY !== e.clientY){
+						self.setPosition(e);
+					}   
+					self.lastX = e.clientX;
+					self.lastY = e.clientY;    
 				});  	
 				if(self.options.zoomType != "inner") {
-					self.zoomLens.bind('mousemove', function(e){
-						self.setPosition(e);
+					self.zoomLens.bind('mousemove', function(e){ 
+						//make sure on orientation change the setposition is not fired
+						if(self.lastX !== e.clientX || self.lastY !== e.clientY){
+							self.setPosition(e);
+						}   
+						self.lastX = e.clientX;
+						self.lastY = e.clientY;    
 					});
 				}
 				if(self.options.tint) {
-					self.zoomTint.bind('mousemove', function(e){
-						self.setPosition(e);
+					self.zoomTint.bind('mousemove', function(e){ 
+						//make sure on orientation change the setposition is not fired
+						if(self.lastX !== e.clientX || self.lastY !== e.clientY){
+							self.setPosition(e);
+						}   
+						self.lastX = e.clientX;
+						self.lastY = e.clientY;    
 					});
 
 				}
 				if(self.options.zoomType == "inner") {
-					self.zoomWindow.bind('mousemove', function(e){
-						self.setPosition(e);
+					self.zoomWindow.bind('mousemove', function(e) {
+						//make sure on orientation change the setposition is not fired
+						if(self.lastX !== e.clientX || self.lastY !== e.clientY){
+							self.setPosition(e);
+						}   
+						self.lastX = e.clientX;
+						self.lastY = e.clientY;    
 					});
 
 				}
+
 
 				//  lensFadeOut: 500,  zoomTintFadeIn
 				self.zoomContainer.mouseenter(function(){
