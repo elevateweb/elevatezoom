@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.2.2
+ *	jQuery elevateZoom 2.2.3
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -858,8 +858,14 @@ if ( typeof Object.create !== 'function' ) {
 							// return -c *(t/=d)*(t-2) + b;//easeoutquad
 							return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;     //ease out expo
 						}; 
-						//if mozilla, it doesnt work on x/y background position
-						if($.browser.mozilla){
+						//check support for x/y background position
+						var $div = $('<div style="background-position: 3px 5px">');
+						$.support.bgPos   = $div.css('backgroundPosition')  === "3px 5px" ? true : false;
+						$.support.bgPosXY = $div.css('backgroundPositionX') === "3px" ? true : false;
+						$div = null;
+
+						//if no xy support
+						if ($.support.bgPos && !$.support.bgPosXY) {
 							var bgpos = 'background-position', cc = $.camelCase;
 							function normalize(value) {
 								var h = '100%', z = '0px', options = {top : z, bottom: h, left: z, right: h};
@@ -887,18 +893,16 @@ if ( typeof Object.create !== 'function' ) {
 								backgroundPositionY: self.windowTopPos,
 								backgroundPositionX: self.windowLeftPos
 							},{queue:false,duration:self.options.easingDuration,easing:'zoomsmoothmove'});
-
 						}
-						//do split easing
-						else {
-
-
+						else{
 							self.zoomWindow.animate({
 								'background-position-x': self.windowLeftPos,
 								'background-position-y': self.windowTopPos
 							},{queue:false,duration:self.options.easingDuration,easing:'zoomsmoothmove'});
-
 						}
+
+
+
 					}
 					else{
 						self.zoomWindow.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });       
