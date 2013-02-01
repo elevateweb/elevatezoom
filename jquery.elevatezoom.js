@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.5.0
+ *	jQuery elevateZoom 2.5.1
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -115,6 +115,7 @@ if ( typeof Object.create !== 'function' ) {
 						+ "width: " + String(self.options.zoomWindowWidth) + "px;"
 						+ "height: " + String(self.options.zoomWindowHeight)
 						+ "px;float: left;"
+						+ "background-size: "+ self.largeWidth/self.options.zoomLevel+ "px " +self.largeHeight/self.options.zoomLevel + "px;"
 						+ "display: none;z-index:100"
 						+ "px;border: " + String(self.options.borderSize) 
 						+ "px solid " + self.options.borderColour 
@@ -129,7 +130,6 @@ if ( typeof Object.create !== 'function' ) {
 						+ "height: " + String(self.nzHeight)
 						+ "px;float: left;"
 						+ "display: none;"
-						+ "background-size: "+ self.largeWidth/self.options.zoomLevel+ "px " +self.largeHeight/self.options.zoomLevel + "px;"
 						+ "cursor:"+(self.options.cursor)+";"
 						+ "px solid " + self.options.borderColour 
 						+ ";background-repeat: no-repeat;"
