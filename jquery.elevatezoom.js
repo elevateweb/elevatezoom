@@ -851,59 +851,19 @@ if ( typeof Object.create !== 'function' ) {
 
 					//set the zoomwindow background position
 					if (self.options.easing){
-
-						$.easing.zoomsmoothmove = function (x, t, b, c, d) {
-							// return -c *(t/=d)*(t-2) + b;
-							//return c * Math.sin(t/d * (Math.PI/2)) + b;  //easeoutsin
-							// return -c *(t/=d)*(t-2) + b;//easeoutquad
-							return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;     //ease out expo
-						}; 
-						//check support for x/y background position
-						var $div = $('<div style="background-position: 3px 5px">');
-						$.support.bgPos   = $div.css('backgroundPosition')  === "3px 5px" ? true : false;
-						$.support.bgPosXY = $div.css('backgroundPositionX') === "3px" ? true : false;
-						$div = null;
-
-						//if no xy support
-						if ($.support.bgPos && !$.support.bgPosXY) {
-							var bgpos = 'background-position', cc = $.camelCase;
-							function normalize(value) {
-								var h = '100%', z = '0px', options = {top : z, bottom: h, left: z, right: h};
-								return options[value] || value;
-							}
-							$.each(['x', 'y'], function (i, v) {
-								var camelCase = cc(bgpos + '-' + v);
-								$.cssHooks[camelCase] = {
-										get: function (elem) {
-											var pos = $.css(elem, bgpos).split(/\s+/, 2);
-											return normalize(pos[i]);
-										},
-										set: function (elem, value) {
-											var pos = $.css(elem, bgpos).split(/\s+/, 2);
-											pos[i] = normalize(value);
-											$.style(elem, bgpos, pos.join(' '));
-										}
-								};
-								$.fx.step[camelCase] = function (fx) {
-									$.style(fx.elem, fx.prop, fx.now);
-								};
-							});
-							//
-							self.zoomWindow.stop().animate({
-								backgroundPositionY: self.windowTopPos,
-								backgroundPositionX: self.windowLeftPos
-							},{queue:false,duration:self.options.easingDuration,easing:'zoomsmoothmove'});
+						//set the pos to 0 if not set
+						if(!self.xp){self.xp = 0;}
+						if(!self.yp){self.yp = 0;}
+						//if loop not already started, then run it 
+						if (!self.loop){  
+							self.loop = setInterval(function(){
+								//using zeno's paradox           
+								self.xp += (self.windowLeftPos  - self.xp) / self.options.easingAmount; 
+								self.yp += (self.windowTopPos  - self.yp) / self.options.easingAmount;
+								self.zoomWindow.css({ backgroundPosition: self.xp + 'px ' + self.yp + 'px' });       
+							}, 16);
 						}
-						else{
-							self.zoomWindow.animate({
-								'background-position-x': self.windowLeftPos,
-								'background-position-y': self.windowTopPos
-							},{queue:false,duration:self.options.easingDuration,easing:'zoomsmoothmove'});
-						}
-
-
-
-					}
+					}   
 					else{
 						self.zoomWindow.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });       
 					}
@@ -1098,8 +1058,7 @@ if ( typeof Object.create !== 'function' ) {
 
 	$.fn.elevateZoom.options = {
 			easing: false,
-			easingType: 'zoomdefault',
-			easingDuration: 2000,
+			easingAmount: 12,
 			lensSize: 200,
 			zoomWindowWidth: 400,
 			zoomWindowHeight: 400,
