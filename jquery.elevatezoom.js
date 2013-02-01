@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.2.3
+ *	jQuery elevateZoom 2.3.0
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -1073,6 +1073,11 @@ if ( typeof Object.create !== 'function' ) {
 				}
 				return self.gallerylist;
 
+			},
+			closeAll: function(){
+				if(self.zoomWindow){self.zoomWindow.hide();};
+				if(self.zoomLens){self.zoomLens.hide();}
+				if(self.zoomTint){self.zoomTint.hide();}
 			}
 
 	};
