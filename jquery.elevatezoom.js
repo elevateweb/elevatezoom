@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.5.1
+ *	jQuery elevateZoom 2.5.2
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -826,7 +826,7 @@ if ( typeof Object.create !== 'function' ) {
 				//set the css background position 
 
 
-				if(self.options.zoomType == "window") {
+				if(self.options.zoomType == "window" || self.options.zoomType == "inner") {
 
 					//overrides for images not zoomable
 					if(self.widthRatio <= 1){
@@ -864,13 +864,6 @@ if ( typeof Object.create !== 'function' ) {
 					else{
 						self.zoomWindow.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });       
 					}
-
-
-				}
-				//set the css background position 
-				if(self.options.zoomType == "inner") {
-
-					self.zoomWindow.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });
 				}
 			},
 			setTintPosition: function(e){
