@@ -1,7 +1,7 @@
 {
   "name": "elevatezoom",
   "title": "elevateZoom",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "A jQuery image zoom plugin, with tints, easing and gallery integration.",
   "author": {
     "name": "Andy Eades",

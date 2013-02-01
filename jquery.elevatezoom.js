@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.3.0
+ *	jQuery elevateZoom 2.5.0
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -104,8 +104,8 @@ if ( typeof Object.create !== 'function' ) {
 				//get offset of the non zoomed image
 				self.nzOffset = self.$elem.offset();
 				//calculate the width ratio of the large/small image
-				self.widthRatio = self.largeWidth / self.nzWidth;
-				self.heightRatio = self.largeHeight / self.nzHeight; 
+				self.widthRatio = (self.largeWidth/self.options.zoomLevel) / self.nzWidth;
+				self.heightRatio = (self.largeHeight/self.options.zoomLevel) / self.nzHeight; 
 
 
 //				if window zoom        
@@ -129,6 +129,7 @@ if ( typeof Object.create !== 'function' ) {
 						+ "height: " + String(self.nzHeight)
 						+ "px;float: left;"
 						+ "display: none;"
+						+ "background-size: "+ self.largeWidth/self.options.zoomLevel+ "px " +self.largeHeight/self.options.zoomLevel + "px;"
 						+ "cursor:"+(self.options.cursor)+";"
 						+ "px solid " + self.options.borderColour 
 						+ ";background-repeat: no-repeat;"
@@ -270,11 +271,6 @@ if ( typeof Object.create !== 'function' ) {
 
 				//  self.captionStyle = "text-align: left;background-color: black;color: white;font-weight: bold;padding: 10px;font-family: sans-serif;font-size: 11px";                                                                                                                                                                                                                                          
 				// self.zoomCaption = $('<div class="elevatezoom-caption" style="'+self.captionStyle+'display: block; width: 280px;">INSERT ALT TAG</div>').appendTo(self.zoomWindow.parent());
-
-				//set image attibutes
-				if(self.options.tint) {
-					//	zoomLens.css({ backgroundImage: "url('" + imageSrc + "')" }); 
-				}
 
 				if(self.options.zoomType == "lens") {
 					self.zoomLens.css({ backgroundImage: "url('" + self.imageSrc + "')" }); 
@@ -824,8 +820,9 @@ if ( typeof Object.create !== 'function' ) {
 				self.windowTopPos = String(((e.pageY - self.nzOffset.top) * self.heightRatio - self.zoomWindow.height() / 2) * (-1));
 				if(self.Etoppos){self.windowTopPos = 0;}
 				if(self.Eloppos){self.windowLeftPos = 0;}     
-				if(self.Eboppos){self.windowTopPos = (self.largeHeight-self.zoomWindow.height())*(-1);} 
-				if(self.Eroppos){self.windowLeftPos = ((self.largeWidth-self.zoomWindow.width())*(-1));}    
+				if(self.Eboppos){self.windowTopPos = (self.largeHeight/self.options.zoomLevel-self.zoomWindow.height())*(-1);} 
+				if(self.Eroppos){self.windowLeftPos = ((self.largeWidth/self.options.zoomLevel-self.zoomWindow.width())*(-1));}    
+
 				//set the css background position 
 
 
@@ -1034,6 +1031,16 @@ if ( typeof Object.create !== 'function' ) {
 				return self.gallerylist;
 
 			},
+			changeZoomLevel: function(value){
+				var self = this;          
+				self.widthRatio = (self.largeWidth/value) / self.nzWidth;
+				self.heightRatio = (self.largeHeight/value) / self.nzHeight; 
+				self.zoomWindow.css({ "background-size": self.largeWidth/value + 'px ' + self.largeHeight/value + 'px' }); 
+				self.zoomLens.css({ width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px', height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' })
+				//sets the boundry change, called in setWindowPos
+				self.options.zoomLevel = value;
+
+			},
 			closeAll: function(){
 				if(self.zoomWindow){self.zoomWindow.hide();};
 				if(self.zoomLens){self.zoomLens.hide();}
@@ -1057,6 +1064,7 @@ if ( typeof Object.create !== 'function' ) {
 	};
 
 	$.fn.elevateZoom.options = {
+			zoomLevel: 1,
 			easing: false,
 			easingAmount: 12,
 			lensSize: 200,
