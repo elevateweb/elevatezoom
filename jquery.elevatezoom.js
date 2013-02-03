@@ -893,6 +893,9 @@ if ( typeof Object.create !== 'function' ) {
 			swaptheimage: function(smallimage, largeimage){
 				var self = this;
 				var newImg = new Image(); 
+
+                self.options.onImageSwap(self.$elem);
+                
 				newImg.onload = function() {
 					self.largeWidth = newImg.width;
 					self.largeHeight = newImg.height;
@@ -913,7 +916,7 @@ if ( typeof Object.create !== 'function' ) {
 					//re-calculate values
 					self.nzHeight = newImg2.height;
 					self.nzWidth = newImg2.width;
-
+                    self.options.onImageSwapComplete(self.$elem);
 
 					self.doneCallback();  
 					return;      
@@ -1091,7 +1094,9 @@ if ( typeof Object.create !== 'function' ) {
 			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
 			responsive:false,
 			onComplete: $.noop,
-			onZoomedImageLoaded: function() {}
+			onZoomedImageLoaded: function() {},
+            onImageSwap: $.noop,
+            onImageSwapComplete: $.noop
 	};
 
 })( jQuery, window, document );
