@@ -894,8 +894,8 @@ if ( typeof Object.create !== 'function' ) {
 				var self = this;
 				var newImg = new Image(); 
 
-                self.options.onImageSwap(self.$elem);
-                
+				self.options.onImageSwap(self.$elem);
+				
 				newImg.onload = function() {
 					self.largeWidth = newImg.width;
 					self.largeHeight = newImg.height;
@@ -916,7 +916,7 @@ if ( typeof Object.create !== 'function' ) {
 					//re-calculate values
 					self.nzHeight = newImg2.height;
 					self.nzWidth = newImg2.width;
-                    self.options.onImageSwapComplete(self.$elem);
+					self.options.onImageSwapComplete(self.$elem);
 
 					self.doneCallback();  
 					return;      
@@ -1095,8 +1095,8 @@ if ( typeof Object.create !== 'function' ) {
 			responsive:false,
 			onComplete: $.noop,
 			onZoomedImageLoaded: function() {},
-            onImageSwap: $.noop,
-            onImageSwapComplete: $.noop
+			onImageSwap: $.noop,
+			onImageSwapComplete: $.noop
 	};
 
 })( jQuery, window, document );
