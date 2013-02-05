@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.5.2
+ *	jQuery elevateZoom 2.5.3
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -53,7 +53,12 @@ if ( typeof Object.create !== 'function' ) {
 
 				//Create the image swap from the gallery 
 				$('#'+self.options.gallery + ' a').click( function(e) { 
-
+        
+        //Set a class on the currently active gallery image
+          if(self.options.galleryActiveClass){
+            $('#'+self.options.gallery + ' a').removeClass(self.options.galleryActiveClass);
+            $(this).addClass(self.options.galleryActiveClass);
+          }
 					//stop any link on the a tag from working
 					e.preventDefault();
 
@@ -111,8 +116,9 @@ if ( typeof Object.create !== 'function' ) {
 //				if window zoom        
 				if(self.options.zoomType == "window") {
 					self.zoomWindowStyle = "overflow: hidden;"
-						+ "background-position: 0px 0px;background-color:white;text-align:center;"
-						+ "width: " + String(self.options.zoomWindowWidth) + "px;"
+						+ "background-position: 0px 0px;text-align:center;"  
+						+ "background-color: " + String(self.options.zoomWindowBgColour)            
+						+ ";width: " + String(self.options.zoomWindowWidth) + "px;"
 						+ "height: " + String(self.options.zoomWindowHeight)
 						+ "px;float: left;"
 						+ "background-size: "+ self.largeWidth/self.options.zoomLevel+ "px " +self.largeHeight/self.options.zoomLevel + "px;"
@@ -168,8 +174,8 @@ if ( typeof Object.create !== 'function' ) {
 					+ "height:"+lensHeight+"px;"
 					+ "background-color:"+(self.options.lensColour)+";"					
 					+ "cursor:"+(self.options.cursor)+";"
-					+ "border: "+(self.options.lensBorder)+"px" +
-					" solid black;background-repeat: no-repeat;position: absolute;";
+					+ "border: "+(self.options.lensBorderSize)+"px" +
+					" solid "+(self.options.lensBorderColour)+";background-repeat: no-repeat;position: absolute;";
 				} 
 
 
@@ -594,16 +600,16 @@ if ( typeof Object.create !== 'function' ) {
 				//calculate the bound regions - but only if zoom window
 				if(self.options.zoomType == "window") {
 					self.Etoppos = (self.mouseTop < (self.zoomLens.height()/2));
-					self.Eboppos = (self.mouseTop > self.nzHeight - (self.zoomLens.height()/2)-(self.options.lensBorder*2));
+					self.Eboppos = (self.mouseTop > self.nzHeight - (self.zoomLens.height()/2)-(self.options.lensBorderSize*2));
 					self.Eloppos = (self.mouseLeft < 0+((self.zoomLens.width()/2))); 
-					self.Eroppos = (self.mouseLeft > (self.nzWidth - (self.zoomLens.width()/2)-(self.options.lensBorder*2)));  
+					self.Eroppos = (self.mouseLeft > (self.nzWidth - (self.zoomLens.width()/2)-(self.options.lensBorderSize*2)));  
 				}
 				//calculate the bound regions - but only for inner zoom
 				if(self.options.zoomType == "inner"){ 
 					self.Etoppos = (self.mouseTop < (self.nzHeight/2)/self.heightRatio );
 					self.Eboppos = (self.mouseTop > self.nzHeight - ((self.nzHeight/2)/self.heightRatio));
 					self.Eloppos = (self.mouseLeft < 0+((self.nzWidth/2)/self.widthRatio));
-					self.Eroppos = (self.mouseLeft > (self.nzWidth - (self.nzWidth/2)/self.widthRatio-(self.options.lensBorder*2)));  
+					self.Eroppos = (self.mouseLeft > (self.nzWidth - (self.nzWidth/2)/self.widthRatio-(self.options.lensBorderSize*2)));  
 				}
 
 				// if the mouse position of the slider is one of the outerbounds, then hide  window and lens
@@ -642,19 +648,19 @@ if ( typeof Object.create !== 'function' ) {
 					//Set bottom and right region for window mode
 					if(self.options.zoomType == "window") {
 						if(self.Eboppos){
-							self.lensTopPos = Math.max( (self.nzHeight)-self.zoomLens.height()-(self.options.lensBorder*2), 0 );
+							self.lensTopPos = Math.max( (self.nzHeight)-self.zoomLens.height()-(self.options.lensBorderSize*2), 0 );
 						} 
 						if(self.Eroppos){
-							self.lensLeftPos = (self.nzWidth-(self.zoomLens.width())-(self.options.lensBorder*2));
+							self.lensLeftPos = (self.nzWidth-(self.zoomLens.width())-(self.options.lensBorderSize*2));
 						}  
 					}  
 					//Set bottom and right region for inner mode
 					if(self.options.zoomType == "inner") {
 						if(self.Eboppos){
-							self.lensTopPos = Math.max( (self.nzHeight)-(self.options.lensBorder*2), 0 );
+							self.lensTopPos = Math.max( (self.nzHeight)-(self.options.lensBorderSize*2), 0 );
 						} 
 						if(self.Eroppos){
-							self.lensLeftPos = (self.nzWidth-(self.nzWidth)-(self.options.lensBorder*2));
+							self.lensLeftPos = (self.nzWidth-(self.nzWidth)-(self.options.lensBorderSize*2));
 						}  
 					}
 					//if lens zoom
@@ -878,15 +884,15 @@ if ( typeof Object.create !== 'function' ) {
 					self.tintpos=0;
 				}     
 				if(self.Eboppos){
-					self.tintposy = (self.nzHeight-self.zoomLens.height()-(self.options.lensBorder*2))*(-1);
+					self.tintposy = (self.nzHeight-self.zoomLens.height()-(self.options.lensBorderSize*2))*(-1);
 				} 
 				if(self.Eroppos){
-					self.tintpos = ((self.nzWidth-self.zoomLens.width()-(self.options.lensBorder*2))*(-1));
+					self.tintpos = ((self.nzWidth-self.zoomLens.width()-(self.options.lensBorderSize*2))*(-1));
 				}    
 				if(self.options.tint) {
 					self.zoomTint.css({opacity:self.options.tintOpacity}).animate().fadeIn("slow"); 
-					self.zoomTintImage.css({'left': self.tintpos-self.options.lensBorder+'px'});
-					self.zoomTintImage.css({'top': self.tintposy-self.options.lensBorder+'px'});
+					self.zoomTintImage.css({'left': self.tintpos-self.options.lensBorderSize+'px'});
+					self.zoomTintImage.css({'top': self.tintposy-self.options.lensBorderSize+'px'});
 				}
 			},
 
@@ -1069,6 +1075,7 @@ if ( typeof Object.create !== 'function' ) {
 			zoomWindowOffetx: 0,
 			zoomWindowOffety: 0,
 			zoomWindowPosition: 1,
+      zoomWindowBgColour: "#fff",
 			lensFadeIn: false,
 			lensFadeOut: false,
 			debug: false,
@@ -1080,7 +1087,8 @@ if ( typeof Object.create !== 'function' ) {
 			borderSize: 4,
 			showLens: true,
 			borderColour: "#888",
-			lensBorder: 1,
+			lensBorderSize: 1,
+      lensBorderColour: "#000",
 			lensShape: "square", //can be "round"
 			zoomType: "window", //window is default,  also "lens" available -
 			containLensZoom: false,
@@ -1091,6 +1099,7 @@ if ( typeof Object.create !== 'function' ) {
 			tintColour: "#333", //default tint color, can be anything, red, #ccc, rgb(0,0,0)
 			tintOpacity: 0.4, //opacity of the tint
 			gallery: false,
+      galleryActiveClass: "zoomGalleryActive",
 			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
 			responsive:false,
 			onComplete: $.noop,
