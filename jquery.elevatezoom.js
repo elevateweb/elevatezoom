@@ -53,7 +53,7 @@ if ( typeof Object.create !== 'function' ) {
 
 				//Create the image swap from the gallery 
 				$('#'+self.options.gallery + ' a').click( function(e) { 
-        
+		
 					//Set a class on the currently active gallery image
 					if(self.options.galleryActiveClass){
 						$('#'+self.options.gallery + ' a').removeClass(self.options.galleryActiveClass);
@@ -1075,7 +1075,7 @@ if ( typeof Object.create !== 'function' ) {
 			zoomWindowOffetx: 0,
 			zoomWindowOffety: 0,
 			zoomWindowPosition: 1,
-      		zoomWindowBgColour: "#fff",
+			zoomWindowBgColour: "#fff",
 			lensFadeIn: false,
 			lensFadeOut: false,
 			debug: false,
@@ -1088,7 +1088,7 @@ if ( typeof Object.create !== 'function' ) {
 			showLens: true,
 			borderColour: "#888",
 			lensBorderSize: 1,
-      		lensBorderColour: "#000",
+			lensBorderColour: "#000",
 			lensShape: "square", //can be "round"
 			zoomType: "window", //window is default,  also "lens" available -
 			containLensZoom: false,
@@ -1099,7 +1099,7 @@ if ( typeof Object.create !== 'function' ) {
 			tintColour: "#333", //default tint color, can be anything, red, #ccc, rgb(0,0,0)
 			tintOpacity: 0.4, //opacity of the tint
 			gallery: false,
-      		galleryActiveClass: "zoomGalleryActive",
+			galleryActiveClass: "zoomGalleryActive",
 			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
 			responsive:false,
 			onComplete: $.noop,
