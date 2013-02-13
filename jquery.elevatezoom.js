@@ -54,11 +54,11 @@ if ( typeof Object.create !== 'function' ) {
 				//Create the image swap from the gallery 
 				$('#'+self.options.gallery + ' a').click( function(e) { 
         
-        //Set a class on the currently active gallery image
-          if(self.options.galleryActiveClass){
-            $('#'+self.options.gallery + ' a').removeClass(self.options.galleryActiveClass);
-            $(this).addClass(self.options.galleryActiveClass);
-          }
+					//Set a class on the currently active gallery image
+					if(self.options.galleryActiveClass){
+						$('#'+self.options.gallery + ' a').removeClass(self.options.galleryActiveClass);
+						$(this).addClass(self.options.galleryActiveClass);
+					}
 					//stop any link on the a tag from working
 					e.preventDefault();
 
@@ -113,7 +113,7 @@ if ( typeof Object.create !== 'function' ) {
 				self.heightRatio = (self.largeHeight/self.options.zoomLevel) / self.nzHeight; 
 
 
-//				if window zoom        
+				//if window zoom        
 				if(self.options.zoomType == "window") {
 					self.zoomWindowStyle = "overflow: hidden;"
 						+ "background-position: 0px 0px;text-align:center;"  
@@ -128,7 +128,7 @@ if ( typeof Object.create !== 'function' ) {
 						+ ";background-repeat: no-repeat;"
 						+ "position: absolute;";
 				}
-//				if inner  zoom    
+				//if inner  zoom    
 				if(self.options.zoomType == "inner") {
 					self.zoomWindowStyle = "overflow: hidden;"
 						+ "background-position: 0px 0px;"
@@ -570,7 +570,7 @@ if ( typeof Object.create !== 'function' ) {
 					self.zoomTint.css({ left: 0});
 				}
 				//set responsive       
-//				will checking if the image needs changing before running this code work faster?
+				//will checking if the image needs changing before running this code work faster?
 				if(self.options.responsive){
 					if(self.nzHeight < self.options.zoomWindowWidth/self.widthRatio){
 						lensHeight = self.nzHeight;              
@@ -587,7 +587,7 @@ if ( typeof Object.create !== 'function' ) {
 					self.widthRatio = self.largeWidth / self.nzWidth;
 					self.heightRatio = self.largeHeight / self.nzHeight; 
 					self.zoomLens.css({ width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px', height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' }) 
-//					end responsive image change
+					//end responsive image change
 				}
 
 				//container fix
@@ -799,7 +799,7 @@ if ( typeof Object.create !== 'function' ) {
 					} 
 				} //end isNAN
 				else{
-//					WE CAN POSITION IN A CLASS - ASSUME THAT ANY STRING PASSED IS
+					//WE CAN POSITION IN A CLASS - ASSUME THAT ANY STRING PASSED IS
 					self.externalContainer = $('#'+self.options.zoomWindowPosition);
 					self.externalContainerWidth = self.externalContainer.width();
 					self.externalContainerHeight = self.externalContainer.height();
@@ -1075,7 +1075,7 @@ if ( typeof Object.create !== 'function' ) {
 			zoomWindowOffetx: 0,
 			zoomWindowOffety: 0,
 			zoomWindowPosition: 1,
-      zoomWindowBgColour: "#fff",
+      		zoomWindowBgColour: "#fff",
 			lensFadeIn: false,
 			lensFadeOut: false,
 			debug: false,
@@ -1088,7 +1088,7 @@ if ( typeof Object.create !== 'function' ) {
 			showLens: true,
 			borderColour: "#888",
 			lensBorderSize: 1,
-      lensBorderColour: "#000",
+      		lensBorderColour: "#000",
 			lensShape: "square", //can be "round"
 			zoomType: "window", //window is default,  also "lens" available -
 			containLensZoom: false,
@@ -1099,7 +1099,7 @@ if ( typeof Object.create !== 'function' ) {
 			tintColour: "#333", //default tint color, can be anything, red, #ccc, rgb(0,0,0)
 			tintOpacity: 0.4, //opacity of the tint
 			gallery: false,
-      galleryActiveClass: "zoomGalleryActive",
+      		galleryActiveClass: "zoomGalleryActive",
 			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
 			responsive:false,
 			onComplete: $.noop,
