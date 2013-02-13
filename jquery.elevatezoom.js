@@ -92,7 +92,7 @@ if ( typeof Object.create !== 'function' ) {
 					self.startZoom();
 					self.currentImage = self.imageSrc;
 					//let caller know image has been loaded
-					self.options.onZoomedImageLoaded();
+					self.options.onZoomedImageLoaded(self.$elem);
 				}
 				newImg.src = imgsrc; // this must be done AFTER setting onload
 
