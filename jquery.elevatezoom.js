@@ -157,7 +157,7 @@ if ( typeof Object.create !== 'function' ) {
 						lensHeight = String((self.options.zoomWindowHeight/self.heightRatio))
 					}
 					if(self.largeWidth < self.options.zoomWindowWidth){
-						lensWidth = self.nzHWidth;
+						lensWidth = self.nzWidth;
 					}       
 					else{
 						lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
@@ -906,6 +906,7 @@ if ( typeof Object.create !== 'function' ) {
 					self.largeWidth = newImg.width;
 					self.largeHeight = newImg.height;
 					self.zoomImage = largeimage;
+          self.zoomWindow.css({ "background-size": self.largeWidth + 'px ' + self.largeHeight + 'px' });
 					self.swapAction(smallimage, largeimage);
 					return;              
 				}          
