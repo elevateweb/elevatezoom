@@ -977,14 +977,10 @@ if ( typeof Object.create !== 'function' ) {
 					lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
 				}
 
-
-				self.zoomLens.css('width', lensWidth);    
-
-				self.zoomLens.css('height', lensHeight); 
-
-
-
-
+        if(self.zoomLens){
+				  self.zoomLens.css('width', lensWidth);    
+				  self.zoomLens.css('height', lensHeight); 
+        }
 
 			},
 			getCurrentImage: function(){
