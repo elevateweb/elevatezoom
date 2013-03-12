@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 2.5.3
+ *	jQuery elevateZoom 2.5.6
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -933,7 +933,15 @@ if ( typeof Object.create !== 'function' ) {
 				//swaps the main image
 				//self.$elem.attr("src",smallimage);
 				//swaps the zoom image
-				self.zoomWindow.css({ backgroundImage: "url('" + largeimage + "')" }); 
+         if(self.options.zoomType == "lens") {
+					self.zoomLens.css({ backgroundImage: "url('" + largeimage + "')" }); 
+			  	}
+				if(self.options.zoomType == "window") {
+					self.zoomWindow.css({ backgroundImage: "url('" + largeimage + "')" }); 
+				}
+				if(self.options.zoomType == "inner") {
+					self.zoomWindow.css({ backgroundImage: "url('" + largeimage + "')" }); 
+				} 
 
 				self.currentImage = largeimage;
 
@@ -963,7 +971,7 @@ if ( typeof Object.create !== 'function' ) {
 
 				//NEED TO ADD THE LENS SIZE FOR ROUND
 				// adjust images less than the window height
-
+        if(self.options.zoomType == "window") {
 				if(self.nzHeight < self.options.zoomWindowWidth/self.widthRatio){
 					lensHeight = self.nzHeight;              
 				}
@@ -981,7 +989,7 @@ if ( typeof Object.create !== 'function' ) {
 				  self.zoomLens.css('width', lensWidth);    
 				  self.zoomLens.css('height', lensHeight); 
         }
-
+         }
 			},
 			getCurrentImage: function(){
 				var self = this;  
