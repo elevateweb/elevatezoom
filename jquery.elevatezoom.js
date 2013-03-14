@@ -344,6 +344,8 @@ if ( typeof Object.create !== 'function' ) {
 
 				});  	
 
+				self.zoomContainer.bind('click', self.options.onImageClick);
+
 				self.zoomContainer.bind('mousemove', function(e){  
 					//make sure on orientation change the setposition is not fired 
 					if(self.lastX !== e.clientX || self.lastY !== e.clientY){
@@ -1109,6 +1111,7 @@ if ( typeof Object.create !== 'function' ) {
 			responsive:false,
 			onComplete: $.noop,
 			onZoomedImageLoaded: function() {},
+			onImageClick: $.noop,
 			onImageSwap: $.noop,
 			onImageSwapComplete: $.noop
 	};
