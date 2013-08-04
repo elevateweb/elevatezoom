@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 3.0.0
+ *	jQuery elevateZoom 3.0.1
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -114,7 +114,7 @@ if ( typeof Object.create !== 'function' ) {
 
 				//CrossFade Wrappe
 				if(self.options.imageCrossfade){
-					self.zoomWrap = self.$elem.wrap('<div style="margin-bottom: 10px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;" class="zoomWrapper" />');        
+					self.zoomWrap = self.$elem.wrap('<div style="height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;" class="zoomWrapper" />');        
 					self.$elem.css('position', 'absolute'); 
 				}
 
@@ -122,6 +122,8 @@ if ( typeof Object.create !== 'function' ) {
 				self.scrollingLock = false;
 				self.changeBgSize = false;
 				self.currentZoomLevel = self.options.zoomLevel;
+
+
 				//get offset of the non zoomed image
 				self.nzOffset = self.$elem.offset();
 				//calculate the width ratio of the large/small image
@@ -445,7 +447,10 @@ if ( typeof Object.create !== 'function' ) {
 				//      $(this).empty();    
 				//    return false;
 
-
+				//fix for initial zoom setting
+				if (self.options.zoomLevel != 1){
+					self.changeZoomLevel(self.currentZoomLevel);
+				}
 				//set the min zoomlevel
 				if(self.options.minZoomLevel){
 					self.minZoomLevel = self.options.minZoomLevel;
@@ -548,23 +553,25 @@ if ( typeof Object.create !== 'function' ) {
 				}
 				//set responsive       
 				//will checking if the image needs changing before running this code work faster?
-				if(self.options.responsive){
-					if(self.nzHeight < self.options.zoomWindowWidth/self.widthRatio){
-						lensHeight = self.nzHeight;              
+				if(self.options.responsive && !self.options.scrollZoom){
+					if(self.options.showLens){ 
+						if(self.nzHeight < self.options.zoomWindowWidth/self.widthRatio){
+							lensHeight = self.nzHeight;              
+						}
+						else{
+							lensHeight = String((self.options.zoomWindowHeight/self.heightRatio))
+						}
+						if(self.largeWidth < self.options.zoomWindowWidth){
+							lensWidth = self.nzHWidth;
+						}       
+						else{
+							lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
+						}
+						self.widthRatio = self.largeWidth / self.nzWidth;
+						self.heightRatio = self.largeHeight / self.nzHeight; 
+						self.zoomLens.css({ width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px', height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' }) 
+						//end responsive image change
 					}
-					else{
-						lensHeight = String((self.options.zoomWindowHeight/self.heightRatio))
-					}
-					if(self.largeWidth < self.options.zoomWindowWidth){
-						lensWidth = self.nzHWidth;
-					}       
-					else{
-						lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
-					}
-					self.widthRatio = self.largeWidth / self.nzWidth;
-					self.heightRatio = self.largeHeight / self.nzHeight; 
-					self.zoomLens.css({ width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px', height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' }) 
-					//end responsive image change
 				}
 
 				//container fix
@@ -1484,7 +1491,7 @@ if ( typeof Object.create !== 'function' ) {
 
 				if(scrcontinue){
 
-     
+
 
 					self.zoomLock = 0;
 					self.changeZoom = true;
@@ -1512,6 +1519,9 @@ if ( typeof Object.create !== 'function' ) {
 
 
 					if((self.options.zoomWindowWidth/self.widthRatio) <= self.nzWidth){
+
+
+
 						if(self.options.zoomType != "inner"){
 							if(self.newvaluewidth > self.newvalueheight)   {
 								self.currentZoomLevel = self.newvaluewidth;                 
@@ -1521,6 +1531,7 @@ if ( typeof Object.create !== 'function' ) {
 
 						if(self.options.zoomType != "lens" && self.options.zoomType != "inner") {
 							self.changeBgSize = true;
+
 							self.zoomLens.css({width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px' })
 						}
 						if(self.options.zoomType == "lens" || self.options.zoomType == "inner") {  
@@ -1571,7 +1582,7 @@ if ( typeof Object.create !== 'function' ) {
 			zoomActivation: "hover", // Can also be click (PLACEHOLDER FOR NEXT VERSION)
 			preloading: 1, //by default, load all the images, if 0, then only load images after activated (PLACEHOLDER FOR NEXT VERSION)
 			zoomLevel: 1, //default zoom level of image
-			scrollZoom: false, //allow zoom on mousewheel, true to activate
+			scrollZoom: true, //allow zoom on mousewheel, true to activate
 			scrollZoomIncrement: 0.1,  //steps of the scrollzoom
 			minZoomLevel: false,
 			maxZoomLevel: false,
@@ -1613,7 +1624,7 @@ if ( typeof Object.create !== 'function' ) {
 			constrainSize: false,  //in pixels the dimensions you want to constrain on
 			loadingIcon: false, //http://www.example.com/spinner.gif
 			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
-			responsive:false,
+			responsive:true,
 			onComplete: $.noop,
 			onZoomedImageLoaded: function() {},
 			onImageSwap: $.noop,
