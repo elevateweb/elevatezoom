@@ -413,7 +413,7 @@ if ( typeof Object.create !== 'function' ) {
 
 
 				//  lensFadeOut: 500,  zoomTintFadeIn
-				self.zoomContainer.mouseenter(function(){
+				self.zoomContainer.add(self.$elem).mouseenter(function(){
 
 					if(self.overWindow == false){self.setElements("show");} 
 
