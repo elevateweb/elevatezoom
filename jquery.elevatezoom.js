@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 3.0.1
+ *	jQuery elevateZoom 3.0.3
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -210,7 +210,9 @@ if ( typeof Object.create !== 'function' ) {
 
 				//lens style for lens zoom with optional round for modern browsers
 				self.lensRound = '';
+
 				if(self.options.zoomType == "lens") {
+
 					self.lensStyle = "background-position: 0px 0px;"
 						+ "float: left;display: none;"
 						+ "border: " + String(self.options.borderSize) + "px solid " + self.options.borderColour+";"
@@ -520,12 +522,12 @@ if ( typeof Object.create !== 'function' ) {
 				var self = this;
 
 				if(type=="show"){
-
-					if(self.options.zoomType == "inner") {self.showHideWindow("show");}
-					if(self.options.zoomType == "window") {self.showHideWindow("show");}
-					if(self.options.showLens) {self.showHideLens("show");}
-					if(self.options.tint) {self.showHideTint("show");
-
+					if(self.isWindowSet){
+						if(self.options.zoomType == "inner") {self.showHideWindow("show");}
+						if(self.options.zoomType == "window") {self.showHideWindow("show");}
+						if(self.options.showLens) {self.showHideLens("show");}
+						if(self.options.tint) {self.showHideTint("show");
+						}
 					}
 				}
 
@@ -568,8 +570,15 @@ if ( typeof Object.create !== 'function' ) {
 							lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
 						}
 						self.widthRatio = self.largeWidth / self.nzWidth;
-						self.heightRatio = self.largeHeight / self.nzHeight; 
-						self.zoomLens.css({ width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px', height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' }) 
+						self.heightRatio = self.largeHeight / self.nzHeight;        
+						if(self.options.zoomType != "lens") {
+							self.zoomLens.css({ width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px', height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' })      
+
+						}                     
+						if(self.options.zoomType == "lens") {
+							self.zoomLens.css({ width: String(self.options.lensSize) + 'px', height: String(self.options.lensSize) + 'px' })      
+
+						}        
 						//end responsive image change
 					}
 				}
@@ -886,6 +895,7 @@ if ( typeof Object.create !== 'function' ) {
 					self.windowOffsetLeft =self.externalContainerOffset.left; //DONE 1, 2, 3, 4, 16
 
 				}
+				self.isWindowSet = true;
 				self.windowOffsetTop = self.windowOffsetTop + self.options.zoomWindowOffety;
 				self.windowOffsetLeft = self.windowOffsetLeft + self.options.zoomWindowOffetx;
 
