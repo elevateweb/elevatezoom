@@ -569,8 +569,14 @@ if ( typeof Object.create !== 'function' ) {
 						else{
 							lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
 						}
-						self.widthRatio = self.largeWidth / self.nzWidth;
-						self.heightRatio = self.largeHeight / self.nzHeight;        
+						if(self.options.changed){
+							self.widthRatio = self.largeWidth / self.nzWidth;
+							self.heightRatio = self.largeHeight / self.nzHeight;        
+						}
+						else {
+							self.widthRatio = self.largeWidth/self.currentZoomLevel / self.nzWidth;
+							self.heightRatio = self.largeHeight/self.currentZoomLevel / self.nzHeight;        
+						}
 						if(self.options.zoomType != "lens") {
 							self.zoomLens.css({ width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px', height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' })      
 
@@ -913,8 +919,14 @@ if ( typeof Object.create !== 'function' ) {
 				self.windowTopPos = String(((e.pageY - self.nzOffset.top) * self.heightRatio - self.zoomWindow.height() / 2) * (-1));
 				if(self.Etoppos){self.windowTopPos = 0;}
 				if(self.Eloppos){self.windowLeftPos = 0;}     
-				if(self.Eboppos){self.windowTopPos = (self.largeHeight/self.currentZoomLevel-self.zoomWindow.height())*(-1);  } 
-				if(self.Eroppos){self.windowLeftPos = ((self.largeWidth/self.currentZoomLevel-self.zoomWindow.width())*(-1));}    
+				if(self.Eboppos){
+					if(self.options.changed){self.windowTopPos = (self.largeHeight-self.zoomWindow.height())*(-1);}
+					else{self.windowTopPos = (self.largeHeight/self.currentZoomLevel-self.zoomWindow.height())*(-1);}
+				} 
+				if(self.Eroppos){
+					if(self.options.changed){self.windowLeftPos = ((self.largeWidth-self.zoomWindow.width())*(-1));}
+					else{self.windowLeftPos = ((self.largeWidth/self.currentZoomLevel-self.zoomWindow.width())*(-1));}
+				}    
 
 				//stops micro movements
 				if(self.fullheight){
@@ -1114,11 +1126,12 @@ if ( typeof Object.create !== 'function' ) {
 				self.options.onImageSwap(self.$elem);
 
 				newImg.onload = function() {
-					self.largeWidth = newImg.width;
-					self.largeHeight = newImg.height;
+					self.largeWidth = newImg.width/self.currentZoomLevel;
+					self.largeHeight = newImg.height/self.currentZoomLevel;
 					self.zoomImage = largeimage;
 					self.zoomWindow.css({ "background-size": self.largeWidth + 'px ' + self.largeHeight + 'px' });
 					self.swapAction(smallimage, largeimage);
+					self.options.changed = true;
 					return;              
 				}          
 				newImg.src = largeimage; // this must be done AFTER setting onload
@@ -1638,7 +1651,8 @@ if ( typeof Object.create !== 'function' ) {
 			onComplete: $.noop,
 			onZoomedImageLoaded: function() {},
 			onImageSwap: $.noop,
-			onImageSwapComplete: $.noop
+			onImageSwapComplete: $.noop,
+			changed: false
 	};
 
 })( jQuery, window, document );
