@@ -236,7 +236,7 @@ if ( typeof Object.create !== 'function' ) {
 				//create the div's                                                + ""
 				//self.zoomContainer = $('<div/>').addClass('zoomContainer').css({"position":"relative", "height":self.nzHeight, "width":self.nzWidth});
 
-				self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
+				self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;z-index:999;"></div>');
 				$('body').append(self.zoomContainer);	
 
 
@@ -291,7 +291,10 @@ if ( typeof Object.create !== 'function' ) {
 						self.$elem.trigger('click');
 					});
 				}              
-				self.zoomWindowContainer = $('<div/>').addClass('zoomWindowContainer').css("width",self.options.zoomWindowWidth);
+				self.zoomWindowContainer = $('<div/>').addClass('zoomWindowContainer').css({
+					"width": self.options.zoomWindowWidth,
+					"z-index": 999
+				});
 				self.zoomWindow.wrap(self.zoomWindowContainer);
 
 
