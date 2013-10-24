@@ -1,5 +1,18 @@
 /*
- *	jQuery elevateZoom 3.0.5
+ *	jQuery elevateZoom 3.0.6
+ *	Demo's and documentation:
+ *	www.elevateweb.co.uk/image-zoom
+ *
+ *	Copyright (c) 2012 Andrew Eades
+ *	www.elevateweb.co.uk
+ *
+ *	Dual licensed under the GPL and MIT licenses.
+ *	http://en.wikipedia.org/wiki/MIT_License
+ *	http://en.wikipedia.org/wiki/GNU_General_Public_License
+ */
+
+/*
+ *	jQuery elevateZoom 3.0.3
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -145,10 +158,18 @@ if ( typeof Object.create !== 'function' ) {
 						+ "px solid " + self.options.borderColour 
 						+ ";background-repeat: no-repeat;"
 						+ "position: absolute;";
-				}
+				}    
+        
+        
 				//if inner  zoom    
 				if(self.options.zoomType == "inner") {
+        //has a border been put on the image? Lets cater for this
+
+        var borderWidth = self.$elem.css("border-left-width");
+
 					self.zoomWindowStyle = "overflow: hidden;"
+						+ "margin-left: " + String(borderWidth) + ";" 
+						+ "margin-top: " + String(borderWidth) + ";"         
 						+ "background-position: 0px 0px;"
 						+ "width: " + String(self.nzWidth) + "px;"
 						+ "height: " + String(self.nzHeight)
@@ -236,7 +257,7 @@ if ( typeof Object.create !== 'function' ) {
 				//create the div's                                                + ""
 				//self.zoomContainer = $('<div/>').addClass('zoomContainer').css({"position":"relative", "height":self.nzHeight, "width":self.nzWidth});
 
-				self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;z-index:999;"></div>');
+				self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
 				$('body').append(self.zoomContainer);	
 
 
@@ -291,10 +312,7 @@ if ( typeof Object.create !== 'function' ) {
 						self.$elem.trigger('click');
 					});
 				}              
-				self.zoomWindowContainer = $('<div/>').addClass('zoomWindowContainer').css({
-					"width": self.options.zoomWindowWidth,
-					"z-index": 999
-				});
+				self.zoomWindowContainer = $('<div/>').addClass('zoomWindowContainer').css("width",self.options.zoomWindowWidth);
 				self.zoomWindow.wrap(self.zoomWindowContainer);
 
 
