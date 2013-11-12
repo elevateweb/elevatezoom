@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 3.0.7
+ *	jQuery elevateZoom 3.0.8
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -545,7 +545,7 @@ if ( typeof Object.create !== 'function' ) {
 			},
 			setElements: function(type) {
 				var self = this;
-
+        if(!self.options.zoomEnabled){return false;}
 				if(type=="show"){
 					if(self.isWindowSet){
 						if(self.options.zoomType == "inner") {self.showHideWindow("show");}
@@ -564,9 +564,10 @@ if ( typeof Object.create !== 'function' ) {
 				}   
 			},
 			setPosition: function(e) {
-
+      
 				var self = this;
-
+        
+        if(!self.options.zoomEnabled){return false;}
 
 				//recaclc offset each time in case the image moves
 				//this can be caused by other on page elements
@@ -1692,9 +1693,15 @@ if ( typeof Object.create !== 'function' ) {
 				//
 			},
 			closeAll: function(){
-				if(self.zoomWindow){self.zoomWindow.hide();};
+				if(self.zoomWindow){self.zoomWindow.hide();}
 				if(self.zoomLens){self.zoomLens.hide();}
 				if(self.zoomTint){self.zoomTint.hide();}
+			},
+			changeState: function(value){
+      	var self = this;
+				if(value == 'enable'){self.options.zoomEnabled = true;}
+				if(value == 'disable'){self.options.zoomEnabled = false;}
+
 			}
 
 	};
@@ -1715,6 +1722,7 @@ if ( typeof Object.create !== 'function' ) {
 
 	$.fn.elevateZoom.options = {
 			zoomActivation: "hover", // Can also be click (PLACEHOLDER FOR NEXT VERSION)
+      zoomEnabled: true, //false disables zoomwindow from showing
 			preloading: 1, //by default, load all the images, if 0, then only load images after activated (PLACEHOLDER FOR NEXT VERSION)
 			zoomLevel: 1, //default zoom level of image
 			scrollZoom: false, //allow zoom on mousewheel, true to activate
