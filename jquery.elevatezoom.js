@@ -324,13 +324,13 @@ if ( typeof Object.create !== 'function' ) {
 				// self.zoomCaption = $('<div class="elevatezoom-caption" style="'+self.captionStyle+'display: block; width: 280px;">INSERT ALT TAG</div>').appendTo(self.zoomWindow.parent());
 
 				if(self.options.zoomType == "lens") {
-					self.zoomLens.css({ backgroundImage: "url('" + self.imageSrc + "')" }); 
+					self.zoomLens.css("background-image", "url('" + self.imageSrc + "')"); 
 				}
 				if(self.options.zoomType == "window") {
-					self.zoomWindow.css({ backgroundImage: "url('" + self.imageSrc + "')" }); 
+					self.zoomWindow.css("background-image", "url('" + self.imageSrc + "')"); 
 				}
 				if(self.options.zoomType == "inner") {
-					self.zoomWindow.css({ backgroundImage: "url('" + self.imageSrc + "')" }); 
+					self.zoomWindow.css("background-image", "url('" + self.imageSrc + "')"); 
 				}
 				/*-------------------END THE ZOOM WINDOW AND LENS----------------------------------*/
 				//touch events
@@ -710,22 +710,22 @@ if ( typeof Object.create !== 'function' ) {
 						self.windowLeftPos = String(((e.pageX - self.nzOffset.left) * self.widthRatio - self.zoomLens.width() / 2) * (-1));   
 						self.windowTopPos = String(((e.pageY - self.nzOffset.top) * self.heightRatio - self.zoomLens.height() / 2) * (-1));
 
-						self.zoomLens.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });
+						self.zoomLens.css("background-position", self.windowLeftPos + 'px ' + self.windowTopPos + 'px');
 
 						if(self.changeBgSize){  
 
 							if(self.nzHeight>self.nzWidth){  
 								if(self.options.zoomType == "lens"){       
-									self.zoomLens.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
+									self.zoomLens.css("background-size", self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px');
 								}   
 
-								self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
+								self.zoomWindow.css("background-size", self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px');
 							}
 							else{     
 								if(self.options.zoomType == "lens"){       
-									self.zoomLens.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });
+									self.zoomLens.css("background-size", self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px');
 								}   
-								self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });            
+								self.zoomWindow.css("background-size", self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px');            
 							}
 							self.changeBgSize = false;
 						}    
@@ -806,10 +806,10 @@ if ( typeof Object.create !== 'function' ) {
 					if(!self.isTintActive){
 
 						if(self.options.zoomTintFadeIn){
-							self.zoomTint.css({opacity:self.options.tintOpacity}).animate().stop(true, true).fadeIn("slow");
+							self.zoomTint.css("opacity", self.options.tintOpacity).animate().stop(true, true).fadeIn("slow");
 						}
 						else{
-							self.zoomTint.css({opacity:self.options.tintOpacity}).animate();
+							self.zoomTint.css("opacity", self.options.tintOpacity).animate();
 							self.zoomTint.show();
 
 
@@ -1032,15 +1032,15 @@ if ( typeof Object.create !== 'function' ) {
 									if(self.changeBgSize){    
 										if(self.nzHeight>self.nzWidth){  
 											if(self.options.zoomType == "lens"){      
-												self.zoomLens.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
+												self.zoomLens.css("background-size", self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px');
 											}   
-											self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
+											self.zoomWindow.css("background-size", self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px');
 										}
 										else{   
 											if(self.options.zoomType != "lens"){      
-												self.zoomLens.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
+												self.zoomLens.css("background-size", self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvalueheight + 'px');
 											}            
-											self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });            
+											self.zoomWindow.css("background-size", self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px');            
 
 										}
 
@@ -1053,7 +1053,7 @@ if ( typeof Object.create !== 'function' ) {
                  self.bgxp += (self.largeWidth/self.newvalue  - self.bgxp) / self.options.easingAmount; 
 								self.bgyp += (self.largeHeight/self.newvalue  - self.bgyp) / self.options.easingAmount;
 
-           self.zoomWindow.css({ "background-size": self.bgxp + 'px ' + self.bgyp + 'px' });
+           self.zoomWindow.css("background-size", self.bgxp + 'px ' + self.bgyp + 'px');
 
 
                   }, 16);
@@ -1063,7 +1063,7 @@ if ( typeof Object.create !== 'function' ) {
 										self.changeBgSize = false;
 									}
 
-									self.zoomWindow.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });
+									self.zoomWindow.css("background-position", self.windowLeftPos + 'px ' + self.windowTopPos + 'px');
 									self.scrollingLock = false;
 									self.loop = false;
 
@@ -1072,20 +1072,20 @@ if ( typeof Object.create !== 'function' ) {
 									if(self.changeBgSize){    
 										if(self.nzHeight>self.nzWidth){ 
 											if(self.options.zoomType == "lens"){      
-												self.zoomLens.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
+												self.zoomLens.css("background-size", self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px');
 											}         
-											self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
+											self.zoomWindow.css("background-size", self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px');
 										}
 										else{                 
 											if(self.options.zoomType != "lens"){     
-												self.zoomLens.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });
+												self.zoomLens.css("background-size", self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px');
 											}      
-											self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });            
+											self.zoomWindow.css("background-size", self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px');            
 										}
 										self.changeBgSize = false;
 									}                   
 
-									self.zoomWindow.css({ backgroundPosition: self.xp + 'px ' + self.yp + 'px' });
+									self.zoomWindow.css("background-position", self.xp + 'px ' + self.yp + 'px');
 								}       
 							}, 16);
 						}
@@ -1094,29 +1094,29 @@ if ( typeof Object.create !== 'function' ) {
 						if(self.changeBgSize){  
 							if(self.nzHeight>self.nzWidth){  
 								if(self.options.zoomType == "lens"){      
-									self.zoomLens.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
+									self.zoomLens.css("background-size", self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px');
 								} 
 
-								self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
+								self.zoomWindow.css("background-size", self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px');
 							}
 							else{     
 								if(self.options.zoomType == "lens"){      
-									self.zoomLens.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });
+									self.zoomLens.css("background-size", self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px');
 								} 
 								if((self.largeHeight/self.newvaluewidth) < self.options.zoomWindowHeight){ 
 
-									self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });            
+									self.zoomWindow.css("background-size", self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px');            
 								}
 								else{
 
-									self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });   
+									self.zoomWindow.css("background-size", self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px');   
 								}
 
 							}
 							self.changeBgSize = false;
 						}     
 
-						self.zoomWindow.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });       
+						self.zoomWindow.css("background-position", self.windowLeftPos + 'px ' + self.windowTopPos + 'px');       
 					}
 				} 
 			},
@@ -1169,7 +1169,7 @@ if ( typeof Object.create !== 'function' ) {
 					self.largeWidth = newImg.width;
 					self.largeHeight = newImg.height;
 					self.zoomImage = largeimage;
-					self.zoomWindow.css({ "background-size": self.largeWidth + 'px ' + self.largeHeight + 'px' });
+					self.zoomWindow.css("background-size", self.largeWidth + 'px ' + self.largeHeight + 'px');
 
 
 					self.swapAction(smallimage, largeimage);
@@ -1205,13 +1205,13 @@ if ( typeof Object.create !== 'function' ) {
 				//self.$elem.attr("src",smallimage);
 				//swaps the zoom image     
 				if(self.options.zoomType == "lens") {
-					self.zoomLens.css({ backgroundImage: "url('" + largeimage + "')" }); 
+					self.zoomLens.css("background-image", "url('" + largeimage + "')"); 
 				}
 				if(self.options.zoomType == "window") {
-					self.zoomWindow.css({ backgroundImage: "url('" + largeimage + "')" }); 
+					self.zoomWindow.css("background-image", "url('" + largeimage + "')"); 
 				}
 				if(self.options.zoomType == "inner") {
-					self.zoomWindow.css({ backgroundImage: "url('" + largeimage + "')" }); 
+					self.zoomWindow.css("background-image", "url('" + largeimage + "')"); 
 				} 
 
 
@@ -1253,7 +1253,7 @@ if ( typeof Object.create !== 'function' ) {
 						//self.zoomTintImage.attr("width",elem.data("image"));
 
 						//resize the tint window
-						self.zoomTint.css({height: elemHeight, width: elemWidth});
+						self.zoomTint.css({"height": elemHeight, "width": elemWidth});
 					}    
 
 					self.zoomContainer.css({"height": elemHeight, "width": elemWidth});
@@ -1276,8 +1276,8 @@ if ( typeof Object.create !== 'function' ) {
 						//self.zoomTintImage.attr("width",elem.data("image"));
 						self.zoomTintImage.attr("height",elemHeight);
 						//self.zoomTintImage.attr('src') = elem.data("image");
-						self.zoomTintImage.css({ height: elemHeight}); 
-						self.zoomTint.css({ height: elemHeight});
+						self.zoomTintImage.css("height", elemHeight); 
+						self.zoomTint.css("height", elemHeight);
 
 					}
 					self.zoomContainer.css({"height": elemHeight, "width": elemWidth});
@@ -1614,7 +1614,7 @@ if ( typeof Object.create !== 'function' ) {
 						if(self.options.zoomType != "lens" && self.options.zoomType != "inner") {
 							self.changeBgSize = true;
 
-							self.zoomLens.css({height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' }) 
+							self.zoomLens.css("height", String((self.options.zoomWindowHeight)/self.heightRatio) + 'px') 
 						}
 						if(self.options.zoomType == "lens" || self.options.zoomType == "inner") {  
 							self.changeBgSize = true;  
@@ -1640,7 +1640,7 @@ if ( typeof Object.create !== 'function' ) {
 						if(self.options.zoomType != "lens" && self.options.zoomType != "inner") {
 							self.changeBgSize = true;
 
-							self.zoomLens.css({width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px' })
+							self.zoomLens.css("width", String((self.options.zoomWindowWidth)/self.widthRatio) + 'px')
 						}
 						if(self.options.zoomType == "lens" || self.options.zoomType == "inner") {  
 							self.changeBgSize = true;
