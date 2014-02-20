@@ -1276,7 +1276,7 @@ if ( typeof Object.create !== 'function' ) {
 					} 
 				}
 				else{
-					self.$elem.attr("src",smallimage); 
+					self.$elem.children().attr("src",smallimage);
 					if(self.options.tint) {
 						self.zoomTintImage.attr("src",largeimage);
 						//self.zoomTintImage.attr("width",elem.data("image"));
