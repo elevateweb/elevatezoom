@@ -762,8 +762,9 @@ if ( typeof Object.create !== 'function' ) {
 			},
 			showHideWindow: function(change) {
 				var self = this;              
-				if(change == "show"){      
+				if(change == "show"){     
 					if(!self.isWindowActive){
+						self.options.onShow(self); 
 						if(self.options.zoomWindowFadeIn){
 							self.zoomWindow.stop(true, true, false).fadeIn(self.options.zoomWindowFadeIn);
 						}
@@ -837,7 +838,6 @@ if ( typeof Object.create !== 'function' ) {
 			setWindowPostition: function( e ) {
 				//return obj.slice( 0, count );
 				var self = this;
-
 				if(!isNaN(self.options.zoomWindowPosition)){
 
 					switch (self.options.zoomWindowPosition) { 
@@ -1771,7 +1771,8 @@ if ( typeof Object.create !== 'function' ) {
 			onComplete: $.noop,
 			onZoomedImageLoaded: function() {},
 			onImageSwap: $.noop,
-			onImageSwapComplete: $.noop
+			onImageSwapComplete: $.noop,
+			onShow:function(){}
 	};
 
 })( jQuery, window, document );
