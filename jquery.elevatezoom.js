@@ -98,6 +98,9 @@ if ( typeof Object.create !== 'function' ) {
 				var self = this;
 				var newImg = new Image();
 				newImg.onload = function() {
+                    if ( newImg.height < 316 ) {
+                        return;
+                    }
 					//set the large image dimensions - used to calculte ratio's
 					self.largeWidth = newImg.width;
 					self.largeHeight = newImg.height;
@@ -1167,6 +1170,9 @@ if ( typeof Object.create !== 'function' ) {
 				self.options.onImageSwap(self.$elem);
 
 				newImg.onload = function() {
+                    if ( newImg.height < 316 ) {
+                        return;
+                    }
 					self.largeWidth = newImg.width;
 					self.largeHeight = newImg.height;
 					self.zoomImage = largeimage;
