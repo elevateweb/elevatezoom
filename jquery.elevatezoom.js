@@ -523,18 +523,19 @@ if ( typeof Object.create !== 'function' ) {
 						}
 						else{
 							//scrolling down
+							//Check if it has to maintain original zoom window aspect ratio or not
+							if((!self.fullheight && !self.fullwidth)||!self.options.mantainZoomAspectRatio){
+                                				if(self.options.maxZoomLevel){
+                                    					if(self.currentZoomLevel <= self.options.maxZoomLevel){
+                                        					self.changeZoomLevel(parseFloat(self.currentZoomLevel)+self.options.scrollZoomIncrement);
+                                    					}
+                                				}
+                                				else{
+                                    					//andy
 
-
-							if(self.options.maxZoomLevel){
-								if(self.currentZoomLevel <= self.options.maxZoomLevel){           
-									self.changeZoomLevel(parseFloat(self.currentZoomLevel)+self.options.scrollZoomIncrement);
-								}
-							}
-							else{
-								//andy 
-
-								self.changeZoomLevel(parseFloat(self.currentZoomLevel)+self.options.scrollZoomIncrement);
-							}
+                                    					self.changeZoomLevel(parseFloat(self.currentZoomLevel)+self.options.scrollZoomIncrement);
+                                				}
+                        				 }
 
 						}
 						return false;
@@ -1771,7 +1772,8 @@ if ( typeof Object.create !== 'function' ) {
 			onComplete: $.noop,
 			onZoomedImageLoaded: function() {},
 			onImageSwap: $.noop,
-			onImageSwapComplete: $.noop
+			onImageSwapComplete: $.noop,
+			mantainZoomAspectRatio: false
 	};
 
 })( jQuery, window, document );
