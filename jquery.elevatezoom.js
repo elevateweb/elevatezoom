@@ -1766,7 +1766,7 @@ if ( typeof Object.create !== 'function' ) {
 			constrainType: false,  //width or height
 			constrainSize: false,  //in pixels the dimensions you want to constrain on
 			loadingIcon: false, //http://www.example.com/spinner.gif
-			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
+			cursor:"inherit", // user should set to what they want the cursor as, if they have set a click function
 			responsive:true,
 			onComplete: $.noop,
 			onZoomedImageLoaded: function() {},
