@@ -104,8 +104,15 @@ if ( typeof Object.create !== 'function' ) {
 					//set the large image dimensions - used to calculte ratio's
 					self.largeWidth = newImg.width;
 					self.largeHeight = newImg.height;
-					//once image is loaded start the calls
-					self.startZoom();
+                    //get dimensions of the non zoomed image
+                    self.nzWidth = self.$elem.width();
+                    self.nzHeight = self.$elem.height();
+					//once image is loaded start the calls if necessary
+                    offset = 30;
+                    if (self.nzHeight <= self.largeHeight - offset|| self.nzWidth <= self.largeWidth - offset){
+                        self.startZoom();
+                    }
+
 					self.currentImage = self.imageSrc;
 					//let caller know image has been loaded
 					self.options.onZoomedImageLoaded(self.$elem);
@@ -118,9 +125,6 @@ if ( typeof Object.create !== 'function' ) {
 
 			startZoom: function( ) {
 				var self = this;
-				//get dimensions of the non zoomed image
-				self.nzWidth = self.$elem.width();
-				self.nzHeight = self.$elem.height();
 
 				//activated elements
 				self.isWindowActive = false;
