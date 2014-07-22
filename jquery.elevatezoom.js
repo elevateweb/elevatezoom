@@ -1597,7 +1597,7 @@ if ( typeof Object.create !== 'function' ) {
 
 				if(self.options.zoomType == "inner"){
 
-					if(self.nzWidth > self.nzHeight){
+					if(self.nzWidth >= self.nzHeight){
 						if( self.newvaluewidth <= maxwidthtnewvalue){
 							scrcontinue = true;
 						}
