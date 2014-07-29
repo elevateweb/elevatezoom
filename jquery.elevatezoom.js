@@ -483,10 +483,12 @@ if (typeof Object.create !== 'function') {
       //  lensFadeOut: 500,  zoomTintFadeIn
       self.zoomContainer.mouseenter(function() {
         if (self.overWindow == false) {
+          self.setElements("show");
           self.$elem.css("opacity","0");
         }
       }).mouseleave(function() {
         if (!self.scrollLock) {
+          self.setElements("hide");
           self.$elem.css("opacity","1");
         }
       });
