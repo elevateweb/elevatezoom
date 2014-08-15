@@ -671,8 +671,8 @@ if ( typeof Object.create !== 'function' ) {
 					if(self.options.showLens) {
 						//		self.showHideLens("show");
 						//set background position of lens
-						self.lensLeftPos = String(self.mouseLeft - self.zoomLens.width() / 2);
-						self.lensTopPos = String(self.mouseTop - self.zoomLens.height() / 2);
+						self.lensLeftPos = String(Math.floor(self.mouseLeft - self.zoomLens.width() / 2));
+						self.lensTopPos = String(Math.floor(self.mouseTop - self.zoomLens.height() / 2));
 
 
 					}
