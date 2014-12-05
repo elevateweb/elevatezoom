@@ -1171,9 +1171,6 @@ if ( typeof Object.create !== 'function' ) {
 					self.largeHeight = newImg.height;
 					self.zoomImage = largeimage;
 					self.zoomWindow.css({ "background-size": self.largeWidth + 'px ' + self.largeHeight + 'px' });
-					self.zoomWindow.css({ "background-size": self.largeWidth + 'px ' + self.largeHeight + 'px' });
-
-
 					self.swapAction(smallimage, largeimage);
 					return;              
 				}          
