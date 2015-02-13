@@ -62,8 +62,6 @@ if ( typeof Object.create !== 'function' ) {
 
 				self.refresh( 1 );
 
-
-
 				//Create the image swap from the gallery 
 				$('#'+self.options.gallery + ' a').click( function(e) { 
 
@@ -257,7 +255,7 @@ if ( typeof Object.create !== 'function' ) {
 				//create the div's                                                + ""
 				//self.zoomContainer = $('<div/>').addClass('zoomContainer').css({"position":"relative", "height":self.nzHeight, "width":self.nzWidth});
 
-				self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
+				self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;z-index:'+self.options.z_index+'"></div>');
 				$('body').append(self.zoomContainer);	
 
 
@@ -1771,7 +1769,8 @@ if ( typeof Object.create !== 'function' ) {
 			onComplete: $.noop,
 			onZoomedImageLoaded: function() {},
 			onImageSwap: $.noop,
-			onImageSwapComplete: $.noop
+			onImageSwapComplete: $.noop,
+			z_index: 999
 	};
 
 })( jQuery, window, document );
