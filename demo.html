@@ -53,5 +53,45 @@ $(document).ready(function () {
 
 </script>
 
+<hr />
+
+<h1>Window Position</h1>
+
+<p>
+  Zoom on the right: <br />
+  <img id="zoom_04a" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/>
+</p>
+
+<p>
+  Zoom on the bottom: <br />
+  <img id="zoom_04b" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/>
+</p>
+
+<p>
+  Remote div zoom: <br />
+  <img id="zoom_04c" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/>
+</p>
+
+
+
+<style>
+  #demo-container {
+    width: 100px;
+    height: 100px;
+    border: solid 3px black;
+  }
+</style>
+
+<p>The zoom will go into this div:</p>
+<div id="demo-container">
+
+</div>
+
+<script>
+  $("#zoom_04a").elevateZoom({zoomWindowPosition: 1}); 
+  $("#zoom_04b").elevateZoom({zoomWindowPosition: 6}); 
+  $("#zoom_04c").elevateZoom({zoomWindowPosition: "demo-container", zoomWindowHeight: 200, zoomWindowWidth:200, borderSize: 0, easing:true}); 
+</script>
+
 </body>
 </html>
