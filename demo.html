@@ -11,8 +11,47 @@
 <img id="zoom_01" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/>
 <script>$("#zoom_01").elevateZoom();</script>
 
+<hr />
+
 <h1>Tints</h1>
 <img id="zoom_02" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/>
 <script>$("#zoom_02").elevateZoom({tint:true, tintColour:'#F90', tintOpacity:0.5});</script>
+
+<hr />
+
+<h1>Gallery & Lightbox</h1>
+
+
+<img id="zoom_03" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/> 
+<div id="gallery_01"> 
+  <a href="#" data-image="images/small/image1.png" data-zoom-image="images/large/image1.jpg"> 
+    <img id="img_01" src="images/thumb/image1.jpg" /> 
+  </a> 
+  <a href="#" data-image="images/small/image2.png" data-zoom-image="images/large/image2.jpg"> 
+    <img id="img_01" src="images/thumb/image2.jpg" /> 
+  </a> 
+  <a href="#" data-image="images/small/image3.png" data-zoom-image="images/large/image3.jpg"> 
+    <img id="img_01" src="images/thumb/image3.jpg" /> 
+  </a> 
+  <a href="#" data-image="images/small/image4.png" data-zoom-image="images/large/image4.jpg"> 
+    <img id="img_01" src="images/thumb/image4.jpg" /> 
+  </a> 
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  $("#zoom_03").elevateZoom({gallery:'gallery_01', cursor: 'pointer', galleryActiveClass: "active", imageCrossfade: true, loadingIcon: "images/spinner.gif"}); 
+
+  $("#zoom_03").bind("click", function(e) {  
+    var ez =   $('#zoom_03').data('elevateZoom');
+    ez.closeAll(); //NEW: This function force hides the lens, tint and window 
+    $.fancybox(ez.getGalleryList());
+    return false;
+  }); 
+
+}); 
+
+</script>
+
 </body>
 </html>
