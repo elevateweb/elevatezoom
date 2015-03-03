@@ -9,7 +9,7 @@ elevateZoom - A jQuery image zoom plugin
 Include jQuery and the plugin on a page. Include your images and initialise the plugin.
 
 ```html
-<img id="zoom_01" src='images/small/image1.png' data-zoom-image="images/large/image1.jpg"/>
+<img id="zoom_01" src='images/large/image1.png' />
 
 <script>
     $('#zoom_01').elevateZoom();
