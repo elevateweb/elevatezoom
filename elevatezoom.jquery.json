@@ -1,7 +1,7 @@
 {
   "name": "elevatezoom",
   "title": "elevateZoom",
-  "version": "2.5.3",
+  "version": "3.1.0",
   "description": "A jQuery image zoom plugin, with tints, easing and gallery integration.",
   "author": {
     "name": "Andy Eades",
@@ -18,7 +18,7 @@
   "docs" : "http://www.elevateweb.co.uk/image-zoom/examples",
   "demo" : "http://www.elevateweb.co.uk/image-zoom/examples",
   "dependencies": {
-    "jquery": ">=1.4.3"
+    "jquery": ">=1.11.2"
   },
   "keywords": [
     "zoom",
