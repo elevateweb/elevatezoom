@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>jQuery elevateZoom Demo</title>
+  <link rel="stylesheet" href="../css/jquery.elevatezoom.css" />
+	<script src='https://code.jquery.com/jquery-1.11.2.min.js'></script>
+	<script src='../js/jquery.elevatezoom.js'></script>
+</head>
+<body>
+<h1>Basic Zoom Example</h1>
+
+<img id="zoom_01" src="images/large/image1.jpg" width="400" />
+<script>$("#zoom_01").elevateZoom();</script>
+
+<hr />
+
+<h1>Tints</h1>
+<img id="zoom_02" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/>
+<script>$("#zoom_02").elevateZoom({tint:true, tintColour:'#F90', tintOpacity:0.5});</script>
+
+<hr />
+
+<h1>Gallery & Lightbox</h1>
+
+
+<img id="zoom_03" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/> 
+<div id="gallery_01"> 
+  <a href="#" data-image="images/small/image1.png" data-zoom-image="images/large/image1.jpg"> 
+    <img id="img_01" src="images/thumb/image1.jpg" /> 
+  </a> 
+  <a href="#" data-image="images/small/image2.png" data-zoom-image="images/large/image2.jpg"> 
+    <img id="img_01" src="images/thumb/image2.jpg" /> 
+  </a> 
+  <a href="#" data-image="images/small/image3.png" data-zoom-image="images/large/image3.jpg"> 
+    <img id="img_01" src="images/thumb/image3.jpg" /> 
+  </a> 
+  <a href="#" data-image="images/small/image4.png" data-zoom-image="images/large/image4.jpg"> 
+    <img id="img_01" src="images/thumb/image4.jpg" /> 
+  </a> 
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  $("#zoom_03").elevateZoom({gallery:'gallery_01', cursor: 'pointer', galleryActiveClass: "active", imageCrossfade: true, loadingIcon: "images/spinner.gif"}); 
+
+  $("#zoom_03").bind("click", function(e) {  
+    var ez =   $('#zoom_03').data('elevateZoom');
+    ez.closeAll(); //NEW: This function force hides the lens, tint and window 
+    $.fancybox(ez.getGalleryList());
+    return false;
+  }); 
+
+}); 
+
+</script>
+
+<hr />
+
+<h1>Window Position</h1>
+
+<p>
+  Zoom on the right: <br />
+  <img id="zoom_04a" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/>
+</p>
+
+<p>
+  Zoom on the bottom: <br />
+  <img id="zoom_04b" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/>
+</p>
+
+<p>
+  Remote div zoom: <br />
+  <img id="zoom_04c" src="images/small/image1.png" data-zoom-image="images/large/image1.jpg"/>
+</p>
+
+
+
+<style>
+  #demo-container {
+    width: 100px;
+    height: 100px;
+    border: solid 3px black;
+  }
+</style>
+
+<p>The zoom will go into this div:</p>
+<div id="demo-container">
+
+</div>
+
+<script>
+  $("#zoom_04a").elevateZoom({zoomWindowPosition: 1}); 
+  $("#zoom_04b").elevateZoom({zoomWindowPosition: 6}); 
+  $("#zoom_04c").elevateZoom({zoomWindowPosition: "demo-container", zoomWindowHeight: 200, zoomWindowWidth:200, borderSize: 0, easing:true}); 
+</script>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 3.0.8
+ *	jQuery elevateZoom 3.1.0
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -10,18 +10,6 @@
  *	http://en.wikipedia.org/wiki/MIT_License
  *	http://en.wikipedia.org/wiki/GNU_General_Public_License
  *
-
-/*
- *	jQuery elevateZoom 3.0.3
- *	Demo's and documentation:
- *	www.elevateweb.co.uk/image-zoom
- *
- *	Copyright (c) 2012 Andrew Eades
- *	www.elevateweb.co.uk
- *
- *	Dual licensed under the GPL and MIT licenses.
- *	http://en.wikipedia.org/wiki/MIT_License
- *	http://en.wikipedia.org/wiki/GNU_General_Public_License
  */
 
 
@@ -81,9 +69,7 @@ if ( typeof Object.create !== 'function' ) {
 					self.swaptheimage($(this).data("image"), self.zoomImagePre);
 					return false;
 				});
-
 			},
-
 			refresh: function( length ) {
 				var self = this;
 
@@ -92,7 +78,6 @@ if ( typeof Object.create !== 'function' ) {
 
 				}, length || self.options.refresh );
 			},
-
 			fetch: function(imgsrc) {
 				//get the image
 				var self = this;
@@ -110,9 +95,7 @@ if ( typeof Object.create !== 'function' ) {
 				newImg.src = imgsrc; // this must be done AFTER setting onload
 
 				return;
-
 			},
-
 			startZoom: function( ) {
 				var self = this;
 				//get dimensions of the non zoomed image
@@ -469,7 +452,7 @@ if ( typeof Object.create !== 'function' ) {
 
 
 
-//				var delta = parseInt(e.originalEvent.wheelDelta || -e.originalEvent.detail);
+				// var delta = parseInt(e.originalEvent.wheelDelta || -e.originalEvent.detail);
 
 				//      $(this).empty();    
 				//    return false;
@@ -493,8 +476,8 @@ if ( typeof Object.create !== 'function' ) {
 					self.zoomContainer.add(self.$elem).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(e){
 
 
-//						in IE there is issue with firing of mouseleave - So check whether still scrolling
-//						and on mouseleave check if scrolllock          
+						// in IE there is issue with firing of mouseleave - So check whether still scrolling
+						// and on mouseleave check if scrolllock          
 						self.scrollLock = true;
 						clearTimeout($.data(this, 'timer'));
 						$.data(this, 'timer', setTimeout(function() {
@@ -540,8 +523,6 @@ if ( typeof Object.create !== 'function' ) {
 						return false;
 					});
 				}
-
-
 			},
 			setElements: function(type) {
 				var self = this;
@@ -756,9 +737,6 @@ if ( typeof Object.create !== 'function' ) {
 					}
 
 				} //end else
-
-
-
 			},
 			showHideWindow: function(change) {
 				var self = this;              
@@ -831,8 +809,6 @@ if ( typeof Object.create !== 'function' ) {
 				}
 			},
 			setLensPostition: function( e ) {
-
-
 			},
 			setWindowPostition: function( e ) {
 				//return obj.slice( 0, count );
@@ -1154,7 +1130,6 @@ if ( typeof Object.create !== 'function' ) {
 					self.zoomTintImage.css({'top': self.tintposy+'px'});
 				}
 			},
-
 			swaptheimage: function(smallimage, largeimage){
 				var self = this;
 				var newImg = new Image(); 
@@ -1178,7 +1153,6 @@ if ( typeof Object.create !== 'function' ) {
 					return;              
 				}          
 				newImg.src = largeimage; // this must be done AFTER setting onload
-
 			},
 			swapAction: function(smallimage, largeimage){
 
@@ -1365,7 +1339,6 @@ if ( typeof Object.create !== 'function' ) {
 
 
 				}
-
 			},
 			doneCallback: function(){
 
@@ -1459,7 +1432,6 @@ if ( typeof Object.create !== 'function' ) {
 					}); 
 				}
 				return self.gallerylist;
-
 			},
 			changeZoomLevel: function(value){
 				var self = this;   
@@ -1498,7 +1470,7 @@ if ( typeof Object.create !== 'function' ) {
 					}
 
 
-//					calculate new width ratio
+					// calculate new width ratio
 
 					if(maxwidthtnewvalue <= newvalue){
 						self.widthRatio = (self.largeWidth/maxwidthtnewvalue) / self.nzWidth;
@@ -1701,9 +1673,7 @@ if ( typeof Object.create !== 'function' ) {
       	var self = this;
 				if(value == 'enable'){self.options.zoomEnabled = true;}
 				if(value == 'disable'){self.options.zoomEnabled = false;}
-
 			}
-
 	};
 
 
@@ -1721,57 +1691,57 @@ if ( typeof Object.create !== 'function' ) {
 	};
 
 	$.fn.elevateZoom.options = {
-			zoomActivation: "hover", // Can also be click (PLACEHOLDER FOR NEXT VERSION)
-      zoomEnabled: true, //false disables zoomwindow from showing
-			preloading: 1, //by default, load all the images, if 0, then only load images after activated (PLACEHOLDER FOR NEXT VERSION)
-			zoomLevel: 1, //default zoom level of image
-			scrollZoom: false, //allow zoom on mousewheel, true to activate
-			scrollZoomIncrement: 0.1,  //steps of the scrollzoom
-			minZoomLevel: false,
-			maxZoomLevel: false,
+			borderColour: "#888",
+			borderSize: 4,
+			constrainSize: false,  //in pixels the dimensions you want to constrain on
+			constrainType: false,  //width or height
+			containLensZoom: false,
+			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
+			debug: false,
 			easing: false,
 			easingAmount: 12,
+			gallery: false,
+			galleryActiveClass: "zoomGalleryActive",
+			imageCrossfade: false,
+			lensBorderColour: "#000",
+			lensBorderSize: 1,
+			lensColour: "white", //colour of the lens background
+			lensFadeIn: false,
+			lensFadeOut: false,
+			lensOpacity: 0.4, //opacity of the lens
+			lensShape: "square", //can be "round"
 			lensSize: 200,
-			zoomWindowWidth: 400,
+			lenszoom: false,
+			loadingIcon: false, //http://www.example.com/spinner.gif
+			maxZoomLevel: false,
+			minZoomLevel: false,
+			onComplete: $.noop,
+			onImageSwap: $.noop,
+			onImageSwapComplete: $.noop,
+			onZoomedImageLoaded: function() {},
+			preloading: 1, //by default, load all the images, if 0, then only load images after activated (PLACEHOLDER FOR NEXT VERSION)
+			responsive:true,
+			scrollZoom: false, //allow zoom on mousewheel, true to activate
+			scrollZoomIncrement: 0.1,  //steps of the scrollzoom
+			showLens: true,
+			tint: false, //enable the tinting
+			tintColour: "#333", //default tint color, can be anything, red, #ccc, rgb(0,0,0)
+			tintOpacity: 0.4, //opacity of the tint
+			zoomActivation: "hover", // Can also be click (PLACEHOLDER FOR NEXT VERSION)
+			zoomLevel: 1, //default zoom level of image
+			zoomTintFadeIn: false,
+			zoomTintFadeOut: false,
+			zoomType: "window", //window is default,  also "lens" available -
+			zoomWindowAlwaysShow: false,
+			zoomWindowBgColour: "#fff",
+			zoomWindowFadeIn: false,
+			zoomWindowFadeOut: false,
 			zoomWindowHeight: 400,
 			zoomWindowOffetx: 0,
 			zoomWindowOffety: 0,
 			zoomWindowPosition: 1,
-			zoomWindowBgColour: "#fff",
-			lensFadeIn: false,
-			lensFadeOut: false,
-			debug: false,
-			zoomWindowFadeIn: false,
-			zoomWindowFadeOut: false,
-			zoomWindowAlwaysShow: false,
-			zoomTintFadeIn: false,
-			zoomTintFadeOut: false,
-			borderSize: 4,
-			showLens: true,
-			borderColour: "#888",
-			lensBorderSize: 1,
-			lensBorderColour: "#000",
-			lensShape: "square", //can be "round"
-			zoomType: "window", //window is default,  also "lens" available -
-			containLensZoom: false,
-			lensColour: "white", //colour of the lens background
-			lensOpacity: 0.4, //opacity of the lens
-			lenszoom: false,
-			tint: false, //enable the tinting
-			tintColour: "#333", //default tint color, can be anything, red, #ccc, rgb(0,0,0)
-			tintOpacity: 0.4, //opacity of the tint
-			gallery: false,
-			galleryActiveClass: "zoomGalleryActive",
-			imageCrossfade: false,
-			constrainType: false,  //width or height
-			constrainSize: false,  //in pixels the dimensions you want to constrain on
-			loadingIcon: false, //http://www.example.com/spinner.gif
-			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
-			responsive:true,
-			onComplete: $.noop,
-			onZoomedImageLoaded: function() {},
-			onImageSwap: $.noop,
-			onImageSwapComplete: $.noop
+			zoomWindowWidth: 400,
+      zoomEnabled: true, //false disables zoomwindow from showing
 	};
 
 })( jQuery, window, document );
