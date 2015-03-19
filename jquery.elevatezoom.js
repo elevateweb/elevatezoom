@@ -448,6 +448,7 @@ if ( typeof Object.create !== 'function' ) {
 				}).mouseleave(function(){
 					if(!self.scrollLock){
 						self.setElements("hide");
+						self.options.onDestroy(self.$elem);
 					}
 				});
 				//end ove image
@@ -1769,6 +1770,7 @@ if ( typeof Object.create !== 'function' ) {
 			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
 			responsive:true,
 			onComplete: $.noop,
+			onDestroy: function() {},
 			onZoomedImageLoaded: function() {},
 			onImageSwap: $.noop,
 			onImageSwapComplete: $.noop
