@@ -610,11 +610,11 @@ if ( typeof Object.create !== 'function' ) {
 								lensHeight = String((self.options.zoomWindowHeight/self.heightRatio))
 							}
 
-							if(self.options.zoomWindowWidth < self.options.zoomWindowWidth){
+							if(self.nzWidth < self.options.zoomWindowHeight/self.heightRatio){
 								lensWidth = self.nzWidth;
 							}       
 							else{
-								lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
+								lensWidth =  String((self.options.zoomWindowWidth/self.widthRatio));
 							}            
 
 							self.zoomLens.css('width', lensWidth);    
