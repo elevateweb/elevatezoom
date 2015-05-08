@@ -36,7 +36,8 @@ if ( typeof Object.create !== 'function' ) {
 (function( $, window, document, undefined ) {
 	var ElevateZoom = {
 			init: function( options, elem ) {
-				var self = this;
+				var self = this,
+					$galleryItems;
 
 				self.elem = elem;
 				self.$elem = $( elem );
@@ -65,11 +66,12 @@ if ( typeof Object.create !== 'function' ) {
 
 
 				//Create the image swap from the gallery 
-				$('#'+self.options.gallery + ' a').click( function(e) { 
+				$galleryItems = $('a', self.options.gallery ? ('#' + self.options.gallery) : self.options.gallerySelector)
+				$galleryItems.click( function(e) { 
 
 					//Set a class on the currently active gallery image
 					if(self.options.galleryActiveClass){
-						$('#'+self.options.gallery + ' a').removeClass(self.options.galleryActiveClass);
+						$galleryItems.removeClass(self.options.galleryActiveClass);
 						$(this).addClass(self.options.galleryActiveClass);
 					}
 					//stop any link on the a tag from working
@@ -1722,7 +1724,7 @@ if ( typeof Object.create !== 'function' ) {
 
 	$.fn.elevateZoom.options = {
 			zoomActivation: "hover", // Can also be click (PLACEHOLDER FOR NEXT VERSION)
-      zoomEnabled: true, //false disables zoomwindow from showing
+      		zoomEnabled: true, //false disables zoomwindow from showing
 			preloading: 1, //by default, load all the images, if 0, then only load images after activated (PLACEHOLDER FOR NEXT VERSION)
 			zoomLevel: 1, //default zoom level of image
 			scrollZoom: false, //allow zoom on mousewheel, true to activate
@@ -1762,6 +1764,7 @@ if ( typeof Object.create !== 'function' ) {
 			tintOpacity: 0.4, //opacity of the tint
 			gallery: false,
 			galleryActiveClass: "zoomGalleryActive",
+			gallerySelector: false,
 			imageCrossfade: false,
 			constrainType: false,  //width or height
 			constrainSize: false,  //in pixels the dimensions you want to constrain on
