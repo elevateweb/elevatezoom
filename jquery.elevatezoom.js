@@ -66,7 +66,7 @@ if ( typeof Object.create !== 'function' ) {
 
 
 				//Create the image swap from the gallery 
-				$galleryItems = $('a', self.options.gallery ? ('#' + self.options.gallery) : self.options.gallerySelector)
+				$galleryItems = $(self.options.galleryItem, self.options.gallery ? ('#' + self.options.gallery) : self.options.gallerySelector);
 				$galleryItems.click( function(e) { 
 
 					//Set a class on the currently active gallery image
@@ -75,13 +75,13 @@ if ( typeof Object.create !== 'function' ) {
 						$(this).addClass(self.options.galleryActiveClass);
 					}
 					//stop any link on the a tag from working
-					e.preventDefault();
+					if (this.tagName === 'A') e.preventDefault();
 
 					//call the swap image function            
 					if($(this).data("zoom-image")){self.zoomImagePre = $(this).data("zoom-image")}
 					else{self.zoomImagePre = $(this).data("image");}
 					self.swaptheimage($(this).data("image"), self.zoomImagePre);
-					return false;
+					if (this.tagName === 'A') return false;
 				});
 
 			},
@@ -1765,6 +1765,7 @@ if ( typeof Object.create !== 'function' ) {
 			gallery: false,
 			galleryActiveClass: "zoomGalleryActive",
 			gallerySelector: false,
+			galleryItem: 'a',
 			imageCrossfade: false,
 			constrainType: false,  //width or height
 			constrainSize: false,  //in pixels the dimensions you want to constrain on
