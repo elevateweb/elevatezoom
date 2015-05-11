@@ -37,7 +37,7 @@ if ( typeof Object.create !== 'function' ) {
 	var ElevateZoom = {
 			init: function( options, elem ) {
 				var self = this,
-					$galleryItems;
+					$galleries;
 
 				self.elem = elem;
 				self.$elem = $( elem );
@@ -66,12 +66,12 @@ if ( typeof Object.create !== 'function' ) {
 
 
 				//Create the image swap from the gallery 
-				$galleryItems = $(self.options.galleryItem, self.options.gallery ? ('#' + self.options.gallery) : self.options.gallerySelector);
-				$galleryItems.click( function(e) { 
+				$galleries = $(self.options.gallery ? ('#' + self.options.gallery) : self.options.gallerySelector);
+      			$galleries.on('click.zoom', self.options.galleryItem, function(e) {
 
 					//Set a class on the currently active gallery image
 					if(self.options.galleryActiveClass){
-						$galleryItems.removeClass(self.options.galleryActiveClass);
+						$(self.options.galleryItem, $galleries).removeClass(self.options.galleryActiveClass);
 						$(this).addClass(self.options.galleryActiveClass);
 					}
 					//stop any link on the a tag from working
