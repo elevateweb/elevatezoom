@@ -448,6 +448,7 @@ if ( typeof Object.create !== 'function' ) {
 				}).mouseleave(function(){
 					if(!self.scrollLock){
 						self.setElements("hide");
+            self.options.onDestroy(self.$elem);
 					}
 				});
 				//end ove image
@@ -610,11 +611,11 @@ if ( typeof Object.create !== 'function' ) {
 								lensHeight = String((self.options.zoomWindowHeight/self.heightRatio))
 							}
 
-							if(self.options.zoomWindowWidth < self.options.zoomWindowWidth){
+							if(self.nzWidth < self.options.zoomWindowHeight/self.heightRatio){
 								lensWidth = self.nzWidth;
 							}       
 							else{
-								lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
+								lensWidth =  String((self.options.zoomWindowWidth/self.widthRatio));
 							}            
 
 							self.zoomLens.css('width', lensWidth);    
@@ -1185,8 +1186,6 @@ if ( typeof Object.create !== 'function' ) {
 					self.largeHeight = newImg.height;
 					self.zoomImage = largeimage;
 					self.zoomWindow.css({ "background-size": self.largeWidth + 'px ' + self.largeHeight + 'px' });
-
-
 					self.swapAction(smallimage, largeimage);
 					return;              
 				}          
@@ -1782,6 +1781,7 @@ if ( typeof Object.create !== 'function' ) {
 			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
 			responsive:true,
 			onComplete: $.noop,
+      onDestroy: function() {},
 			onZoomedImageLoaded: function() {},
 			onImageSwap: $.noop,
 			onImageSwapComplete: $.noop
