@@ -206,8 +206,7 @@ if ( typeof Object.create !== 'function' ) {
 					self.lensStyle = "background-position: 0px 0px;width: " + String((self.options.zoomWindowWidth)/self.widthRatio) + "px;height: " + String((self.options.zoomWindowHeight)/self.heightRatio)
 					+ "px;float: right;display: none;"
 					+ "overflow: hidden;"
-					+ "z-index: 999;"   
-					+ "-webkit-transform: translateZ(0);"               
+					+ "z-index: 999;"
 					+ "opacity:"+(self.options.lensOpacity)+";filter: alpha(opacity = "+(self.options.lensOpacity*100)+"); zoom:1;"
 					+ "width:"+lensWidth+"px;"
 					+ "height:"+lensHeight+"px;"
@@ -257,7 +256,7 @@ if ( typeof Object.create !== 'function' ) {
 				//create the div's                                                + ""
 				//self.zoomContainer = $('<div/>').addClass('zoomContainer').css({"position":"relative", "height":self.nzHeight, "width":self.nzWidth});
 
-				self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
+				self.zoomContainer = $('<div class="zoomContainer" style="position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
 				$('body').append(self.zoomContainer);	
 
 
