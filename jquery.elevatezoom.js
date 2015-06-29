@@ -36,7 +36,8 @@ if ( typeof Object.create !== 'function' ) {
 (function( $, window, document, undefined ) {
 	var ElevateZoom = {
 			init: function( options, elem ) {
-				var self = this;
+				var self = this,
+					$galleries;
 
 				self.elem = elem;
 				self.$elem = $( elem );
@@ -65,21 +66,22 @@ if ( typeof Object.create !== 'function' ) {
 
 
 				//Create the image swap from the gallery 
-				$('#'+self.options.gallery + ' a').click( function(e) { 
+				$galleries = $(self.options.gallery ? ('#' + self.options.gallery) : self.options.gallerySelector);
+      			$galleries.on('click.zoom', self.options.galleryItem, function(e) {
 
 					//Set a class on the currently active gallery image
 					if(self.options.galleryActiveClass){
-						$('#'+self.options.gallery + ' a').removeClass(self.options.galleryActiveClass);
+						$(self.options.galleryItem, $galleries).removeClass(self.options.galleryActiveClass);
 						$(this).addClass(self.options.galleryActiveClass);
 					}
 					//stop any link on the a tag from working
-					e.preventDefault();
+					if (this.tagName === 'A') e.preventDefault();
 
 					//call the swap image function            
 					if($(this).data("zoom-image")){self.zoomImagePre = $(this).data("zoom-image")}
 					else{self.zoomImagePre = $(this).data("image");}
 					self.swaptheimage($(this).data("image"), self.zoomImagePre);
-					return false;
+					if (this.tagName === 'A') return false;
 				});
 
 			},
@@ -1734,7 +1736,7 @@ if ( typeof Object.create !== 'function' ) {
 
 	$.fn.elevateZoom.options = {
 			zoomActivation: "hover", // Can also be click (PLACEHOLDER FOR NEXT VERSION)
-      zoomEnabled: true, //false disables zoomwindow from showing
+      		zoomEnabled: true, //false disables zoomwindow from showing
 			preloading: 1, //by default, load all the images, if 0, then only load images after activated (PLACEHOLDER FOR NEXT VERSION)
 			zoomLevel: 1, //default zoom level of image
 			scrollZoom: false, //allow zoom on mousewheel, true to activate
@@ -1774,6 +1776,8 @@ if ( typeof Object.create !== 'function' ) {
 			tintOpacity: 0.4, //opacity of the tint
 			gallery: false,
 			galleryActiveClass: "zoomGalleryActive",
+			gallerySelector: false,
+			galleryItem: 'a',
 			imageCrossfade: false,
 			constrainType: false,  //width or height
 			constrainSize: false,  //in pixels the dimensions you want to constrain on
