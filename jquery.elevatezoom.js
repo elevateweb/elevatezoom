@@ -491,7 +491,7 @@ if ( typeof Object.create !== 'function' ) {
 				if(self.options.scrollZoom){
 
 
-					self.zoomContainer.add(self.$elem).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(e){
+					self.zoomContainer.add(self.$elem).bind('wheel DOMMouseScroll MozMousePixelScroll', function(e){
 
 
 //						in IE there is issue with firing of mouseleave - So check whether still scrolling
@@ -503,7 +503,7 @@ if ( typeof Object.create !== 'function' ) {
 							//do something
 						}, 250));
 
-						var theEvent = e.originalEvent.wheelDelta || e.originalEvent.detail*-1
+						var theEvent = e.originalEvent.deltaY || e.originalEvent.detail*-1
 
 
 						//this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
