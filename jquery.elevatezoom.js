@@ -604,7 +604,7 @@ if ( typeof Object.create !== 'function' ) {
 							//possibly dont need to keep recalcalculating
 							//if the lens is heigher than the image, then set lens size to image size
 							if(self.nzHeight < self.options.zoomWindowWidth/self.widthRatio){
-								lensHeight = self.nzHeight;
+								self.lensHeight = self.nzHeight;
 
 							}
 							else{
