@@ -1,18 +1,5 @@
 /*
- *	jQuery elevateZoom 3.0.8
- *	Demo's and documentation:
- *	www.elevateweb.co.uk/image-zoom
- *
- *	Copyright (c) 2012 Andrew Eades
- *	www.elevateweb.co.uk
- *
- *	Dual licensed under the GPL and MIT licenses.
- *	http://en.wikipedia.org/wiki/MIT_License
- *	http://en.wikipedia.org/wiki/GNU_General_Public_License
- *
-
-/*
- *	jQuery elevateZoom 3.0.3
+ *	jQuery elevateZoom 3.0.9
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -258,6 +245,9 @@ if ( typeof Object.create !== 'function' ) {
 				//self.zoomContainer = $('<div/>').addClass('zoomContainer').css({"position":"relative", "height":self.nzHeight, "width":self.nzWidth});
 
 				self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
+				if (self.$elem.attr("id")) {
+					self.zoomContainer.attr("id", self.$elem.attr("id") + "-zoomContainer");
+				}
 				$('body').append(self.zoomContainer);	
 
 
