@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 3.0.8
+ *	jQuery elevateZoom 3.1.0
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -9,6 +9,8 @@
  *	Dual licensed under the GPL and MIT licenses.
  *	http://en.wikipedia.org/wiki/MIT_License
  *	http://en.wikipedia.org/wiki/GNU_General_Public_License
+ *
+ *  Contributors: https://github.com/elevateweb/elevatezoom/graphs/contributors
  */
 
 if ( typeof Object.create !== 'function' ) {
