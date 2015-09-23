@@ -27,7 +27,7 @@ if ( typeof Object.create !== 'function' ) {
 				self.elem = elem;
 				self.$elem = $( elem );
 
-				self.imageSrc = self.$elem.data("zoom-image") ? self.$elem.data("zoom-image") : self.$elem.attr("src");
+				self.imageSrc = self.$elem.data(self.options.attrImageZoomSrc) ? self.$elem.data(self.options.attrImageZoomSrc) : self.$elem.attr("src");
 
 				self.options = $.extend( {}, $.fn.elevateZoom.options, options );
 
@@ -61,8 +61,8 @@ if ( typeof Object.create !== 'function' ) {
 					//stop any link on the a tag from working
 					e.preventDefault();
 
-					//call the swap image function            
-					if($(this).data("zoom-image")){self.zoomImagePre = $(this).data("zoom-image")}
+					//call the swap image function
+					if($(this).data(self.options.attrImageZoomSrc)){self.zoomImagePre = $(this).data(self.options.attrImageZoomSrc)}
 					else{self.zoomImagePre = $(this).data("image");}
 					self.swaptheimage($(this).data("image"), self.zoomImagePre);
 					return false;
@@ -1426,12 +1426,12 @@ if ( typeof Object.create !== 'function' ) {
 					$('#'+self.options.gallery + ' a').each(function() {
 
 						var img_src = '';
-						if($(this).data("zoom-image")){
-							img_src = $(this).data("zoom-image");
+						if($(this).data(self.options.attrImageZoomSrc)){
+							img_src = $(this).data(self.options.attrImageZoomSrc);
 						}
 						else if($(this).data("image")){
 							img_src = $(this).data("image");
-						}			
+						}
 						//put the current image at the start
 						if(img_src == self.zoomImage){
 							self.gallerylist.unshift({
@@ -1719,6 +1719,7 @@ if ( typeof Object.create !== 'function' ) {
 	};
 
 	$.fn.elevateZoom.options = {
+		attrImageZoomSrc : 'zoom-image', // attribute to plugin use for zoom
 		zoomActivation: "hover", // Can also be click (PLACEHOLDER FOR NEXT VERSION)
 		zoomEnabled: true, //false disables zoomwindow from showing
 		preloading: 1, //by default, load all the images, if 0, then only load images after activated (PLACEHOLDER FOR NEXT VERSION)
