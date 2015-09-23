@@ -436,7 +436,7 @@ if ( typeof Object.create !== 'function' ) {
 				}).mouseleave(function(){
 					if(!self.scrollLock){
 						self.setElements("hide");
-            self.options.onDestroy(self.$elem);
+            			self.options.onDestroy(self.$elem);
 					}
 				});
 				//end ove image
