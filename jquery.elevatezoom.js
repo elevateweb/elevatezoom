@@ -29,9 +29,9 @@ if ( typeof Object.create !== 'function' ) {
 				self.elem = elem;
 				self.$elem = $( elem );
 
-				self.imageSrc = self.$elem.data(self.options.attrImageZoomSrc) ? self.$elem.data(self.options.attrImageZoomSrc) : self.$elem.attr("src");
-
 				self.options = $.extend( {}, $.fn.elevateZoom.options, options );
+
+				self.imageSrc = self.$elem.data(self.options.attrImageZoomSrc) ? self.$elem.data(self.options.attrImageZoomSrc) : self.$elem.attr("src");
 
 				//TINT OVERRIDE SETTINGS
 				if(self.options.tint) {
