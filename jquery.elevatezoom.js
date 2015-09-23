@@ -1160,8 +1160,8 @@ if ( typeof Object.create !== 'function' ) {
 				var self = this;
 				var newImg = new Image(); 
 
-				if(self.options.loadingIcon){
-					self.spinner = $('<div style="background: url(\''+self.options.loadingIcon+'\') no-repeat center;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;z-index: 2000;position: absolute; background-position: center center;"></div>');
+				if(!!self.options.loadingIcon){
+					self.spinner = $('<div class="'+self.options.loadingIcon+'"></div>');
 					self.$elem.after(self.spinner);
 				}
 
@@ -1368,9 +1368,9 @@ if ( typeof Object.create !== 'function' ) {
 			doneCallback: function(){
 
 				var self = this;
-				if(self.options.loadingIcon){
-					self.spinner.hide();     
-				}   
+				if(!!self.options.loadingIcon){
+					self.spinner.hide();
+				}
 
 				self.nzOffset = self.$elem.offset();
 				self.nzWidth = self.$elem.width();
@@ -1696,7 +1696,7 @@ if ( typeof Object.create !== 'function' ) {
 				if(self.zoomTint){self.zoomTint.hide();}
 			},
 			changeState: function(value){
-      	var self = this;
+				var self = this;
 				if(value == 'enable'){self.options.zoomEnabled = true;}
 				if(value == 'disable'){self.options.zoomEnabled = false;}
 
@@ -1763,7 +1763,7 @@ if ( typeof Object.create !== 'function' ) {
 		imageCrossfade: false,
 		constrainType: false,  //width or height
 		constrainSize: false,  //in pixels the dimensions you want to constrain on
-		loadingIcon: false, //http://www.example.com/spinner.gif
+		loadingIcon: 'elevatezoom-loading', // Use attribute CSS class to personalize div loading now. Or false to not show Loadding.
 		cursor:"default", // user should set to what they want the cursor as, if they have set a click function
 		responsive:true,
 		onComplete: $.noop,
