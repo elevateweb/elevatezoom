@@ -1,5 +1,5 @@
 /*
- *	jQuery elevateZoom 3.0.8
+ *	jQuery elevateZoom 3.1.0
  *	Demo's and documentation:
  *	www.elevateweb.co.uk/image-zoom
  *
@@ -10,20 +10,8 @@
  *	http://en.wikipedia.org/wiki/MIT_License
  *	http://en.wikipedia.org/wiki/GNU_General_Public_License
  *
-
-/*
- *	jQuery elevateZoom 3.0.3
- *	Demo's and documentation:
- *	www.elevateweb.co.uk/image-zoom
- *
- *	Copyright (c) 2012 Andrew Eades
- *	www.elevateweb.co.uk
- *
- *	Dual licensed under the GPL and MIT licenses.
- *	http://en.wikipedia.org/wiki/MIT_License
- *	http://en.wikipedia.org/wiki/GNU_General_Public_License
+ *  Contributors: https://github.com/elevateweb/elevatezoom/graphs/contributors
  */
-
 
 if ( typeof Object.create !== 'function' ) {
 	Object.create = function( obj ) {
@@ -41,9 +29,9 @@ if ( typeof Object.create !== 'function' ) {
 				self.elem = elem;
 				self.$elem = $( elem );
 
-				self.imageSrc = self.$elem.data("zoom-image") ? self.$elem.data("zoom-image") : self.$elem.attr("src");
-
 				self.options = $.extend( {}, $.fn.elevateZoom.options, options );
+
+				self.imageSrc = self.$elem.data(self.options.attrImageZoomSrc) ? self.$elem.data(self.options.attrImageZoomSrc) : self.$elem.attr("src");
 
 				//TINT OVERRIDE SETTINGS
 				if(self.options.tint) {
@@ -75,8 +63,8 @@ if ( typeof Object.create !== 'function' ) {
 					//stop any link on the a tag from working
 					e.preventDefault();
 
-					//call the swap image function            
-					if($(this).data("zoom-image")){self.zoomImagePre = $(this).data("zoom-image")}
+					//call the swap image function
+					if($(this).data(self.options.attrImageZoomSrc)){self.zoomImagePre = $(this).data(self.options.attrImageZoomSrc)}
 					else{self.zoomImagePre = $(this).data("image");}
 					self.swaptheimage($(this).data("image"), self.zoomImagePre);
 					return false;
@@ -257,7 +245,7 @@ if ( typeof Object.create !== 'function' ) {
 				//create the div's                                                + ""
 				//self.zoomContainer = $('<div/>').addClass('zoomContainer').css({"position":"relative", "height":self.nzHeight, "width":self.nzWidth});
 
-				self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
+				self.zoomContainer = $('<div class="zoomContainer" style="position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
 				$('body').append(self.zoomContainer);	
 
 
@@ -448,7 +436,7 @@ if ( typeof Object.create !== 'function' ) {
 				}).mouseleave(function(){
 					if(!self.scrollLock){
 						self.setElements("hide");
-            self.options.onDestroy(self.$elem);
+            			self.options.onDestroy(self.$elem);
 					}
 				});
 				//end ove image
@@ -1174,9 +1162,11 @@ if ( typeof Object.create !== 'function' ) {
 				var self = this;
 				var newImg = new Image(); 
 
-				if(self.options.loadingIcon){
-					self.spinner = $('<div style="background: url(\''+self.options.loadingIcon+'\') no-repeat center;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;z-index: 2000;position: absolute; background-position: center center;"></div>');
+				if(!!self.options.loadingIcon && !self.spinner){
+					self.spinner = $('<div class="'+self.options.loadingIcon+'"></div>');
 					self.$elem.after(self.spinner);
+				}else{
+					self.spinner.show();
 				}
 
 				self.options.onImageSwap(self.$elem);
@@ -1382,9 +1372,9 @@ if ( typeof Object.create !== 'function' ) {
 			doneCallback: function(){
 
 				var self = this;
-				if(self.options.loadingIcon){
-					self.spinner.hide();     
-				}   
+				if(!!self.options.loadingIcon && !!self.spinner && !!self.spinner.length){
+					self.spinner.hide();
+				}
 
 				self.nzOffset = self.$elem.offset();
 				self.nzWidth = self.$elem.width();
@@ -1440,12 +1430,12 @@ if ( typeof Object.create !== 'function' ) {
 					$('#'+self.options.gallery + ' a').each(function() {
 
 						var img_src = '';
-						if($(this).data("zoom-image")){
-							img_src = $(this).data("zoom-image");
+						if($(this).data(self.options.attrImageZoomSrc)){
+							img_src = $(this).data(self.options.attrImageZoomSrc);
 						}
 						else if($(this).data("image")){
 							img_src = $(this).data("image");
-						}			
+						}
 						//put the current image at the start
 						if(img_src == self.zoomImage){
 							self.gallerylist.unshift({
@@ -1710,7 +1700,7 @@ if ( typeof Object.create !== 'function' ) {
 				if(self.zoomTint){self.zoomTint.hide();}
 			},
 			changeState: function(value){
-      	var self = this;
+				var self = this;
 				if(value == 'enable'){self.options.zoomEnabled = true;}
 				if(value == 'disable'){self.options.zoomEnabled = false;}
 
@@ -1733,58 +1723,59 @@ if ( typeof Object.create !== 'function' ) {
 	};
 
 	$.fn.elevateZoom.options = {
-			zoomActivation: "hover", // Can also be click (PLACEHOLDER FOR NEXT VERSION)
-      zoomEnabled: true, //false disables zoomwindow from showing
-			preloading: 1, //by default, load all the images, if 0, then only load images after activated (PLACEHOLDER FOR NEXT VERSION)
-			zoomLevel: 1, //default zoom level of image
-			scrollZoom: false, //allow zoom on mousewheel, true to activate
-			scrollZoomIncrement: 0.1,  //steps of the scrollzoom
-			minZoomLevel: false,
-			maxZoomLevel: false,
-			easing: false,
-			easingAmount: 12,
-			lensSize: 200,
-			zoomWindowWidth: 400,
-			zoomWindowHeight: 400,
-			zoomWindowOffetx: 0,
-			zoomWindowOffety: 0,
-			zoomWindowPosition: 1,
-			zoomWindowBgColour: "#fff",
-			lensFadeIn: false,
-			lensFadeOut: false,
-			debug: false,
-			zoomWindowFadeIn: false,
-			zoomWindowFadeOut: false,
-			zoomWindowAlwaysShow: false,
-			zoomTintFadeIn: false,
-			zoomTintFadeOut: false,
-			borderSize: 4,
-			showLens: true,
-			borderColour: "#888",
-			lensBorderSize: 1,
-			lensBorderColour: "#000",
-			lensShape: "square", //can be "round"
-			zoomType: "window", //window is default,  also "lens" available -
-			containLensZoom: false,
-			lensColour: "white", //colour of the lens background
-			lensOpacity: 0.4, //opacity of the lens
-			lenszoom: false,
-			tint: false, //enable the tinting
-			tintColour: "#333", //default tint color, can be anything, red, #ccc, rgb(0,0,0)
-			tintOpacity: 0.4, //opacity of the tint
-			gallery: false,
-			galleryActiveClass: "zoomGalleryActive",
-			imageCrossfade: false,
-			constrainType: false,  //width or height
-			constrainSize: false,  //in pixels the dimensions you want to constrain on
-			loadingIcon: false, //http://www.example.com/spinner.gif
-			cursor:"default", // user should set to what they want the cursor as, if they have set a click function
-			responsive:true,
-			onComplete: $.noop,
-      onDestroy: function() {},
-			onZoomedImageLoaded: function() {},
-			onImageSwap: $.noop,
-			onImageSwapComplete: $.noop
+		attrImageZoomSrc : 'zoom-image', // attribute to plugin use for zoom
+		zoomActivation: "hover", // Can also be click (PLACEHOLDER FOR NEXT VERSION)
+		zoomEnabled: true, //false disables zoomwindow from showing
+		preloading: 1, //by default, load all the images, if 0, then only load images after activated (PLACEHOLDER FOR NEXT VERSION)
+		zoomLevel: 1, //default zoom level of image
+		scrollZoom: false, //allow zoom on mousewheel, true to activate
+		scrollZoomIncrement: 0.1,  //steps of the scrollzoom
+		minZoomLevel: false,
+		maxZoomLevel: false,
+		easing: false,
+		easingAmount: 12,
+		lensSize: 200,
+		zoomWindowWidth: 400,
+		zoomWindowHeight: 400,
+		zoomWindowOffetx: 0,
+		zoomWindowOffety: 0,
+		zoomWindowPosition: 1,
+		zoomWindowBgColour: "#fff",
+		lensFadeIn: false,
+		lensFadeOut: false,
+		debug: false,
+		zoomWindowFadeIn: false,
+		zoomWindowFadeOut: false,
+		zoomWindowAlwaysShow: false,
+		zoomTintFadeIn: false,
+		zoomTintFadeOut: false,
+		borderSize: 4,
+		showLens: true,
+		borderColour: "#888",
+		lensBorderSize: 1,
+		lensBorderColour: "#000",
+		lensShape: "square", //can be "round"
+		zoomType: "window", //window is default,  also "lens" available -
+		containLensZoom: false,
+		lensColour: "white", //colour of the lens background
+		lensOpacity: 0.4, //opacity of the lens
+		lenszoom: false,
+		tint: false, //enable the tinting
+		tintColour: "#333", //default tint color, can be anything, red, #ccc, rgb(0,0,0)
+		tintOpacity: 0.4, //opacity of the tint
+		gallery: false,
+		galleryActiveClass: "zoomGalleryActive",
+		imageCrossfade: false,
+		constrainType: false,  //width or height
+		constrainSize: false,  //in pixels the dimensions you want to constrain on
+		loadingIcon: 'elevatezoom-loading', // Use attribute CSS class to personalize div loading now. Or false to not show Loadding.
+		cursor:"default", // user should set to what they want the cursor as, if they have set a click function
+		responsive:true,
+		onComplete: $.noop,
+		onDestroy: function() {},
+		onZoomedImageLoaded: function() {},
+		onImageSwap: $.noop,
+		onImageSwapComplete: $.noop
 	};
 
 })( jQuery, window, document );
