@@ -503,7 +503,7 @@ if ( typeof Object.create !== 'function' ) {
 							//do something
 						}, 250));
 
-						var theEvent = e.originalEvent.wheelDelta || e.originalEvent.detail*-1
+						var theEvent = -e.originalEvent.deltaY || 0;
 
 
 						//this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
