@@ -710,8 +710,8 @@ if ( typeof Object.create !== 'function' ) {
 					}
 					//if lens zoom
 					if(self.options.zoomType == "lens") {  
-						self.windowLeftPos = String(((e.pageX - self.nzOffset.left) * self.widthRatio - self.zoomLens.width() / 2) * (-1));   
-						self.windowTopPos = String(((e.pageY - self.nzOffset.top) * self.heightRatio - self.zoomLens.height() / 2) * (-1));
+						self.windowLeftPos = String(Math.round(((e.pageX - self.nzOffset.left) * self.widthRatio - self.zoomLens.width() / 2) * (-1))-self.options.borderSize);   
+						self.windowTopPos = String(Math.round(((e.pageY - self.nzOffset.top) * self.heightRatio - self.zoomLens.height() / 2) * (-1))+1-self.options.borderSize);
 
 						self.zoomLens.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });
 
