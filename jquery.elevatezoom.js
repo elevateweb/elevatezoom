@@ -301,6 +301,7 @@ if ( typeof Object.create !== 'function' ) {
 
 
 
+				moveZoomWindow = true;
 
 				//create zoom window 
 				if(isNaN(self.options.zoomWindowPosition)){
@@ -378,6 +379,10 @@ if ( typeof Object.create !== 'function' ) {
 				}
 				//Needed to work in IE
 				self.$elem.bind('mousemove', function(e){   
+
+					if(!moveZoomWindow)
+						return;
+
 					if(self.overWindow == false){self.setElements("show");}
 					//make sure on orientation change the setposition is not fired
 					if(self.lastX !== e.clientX || self.lastY !== e.clientY){
@@ -390,6 +395,8 @@ if ( typeof Object.create !== 'function' ) {
 				});  	
 
 				self.zoomContainer.bind('mousemove', function(e){ 
+					if(!moveZoomWindow)
+						return;
 
 					if(self.overWindow == false){self.setElements("show");} 
 
@@ -401,8 +408,15 @@ if ( typeof Object.create !== 'function' ) {
 					self.lastX = e.clientX;
 					self.lastY = e.clientY;    
 				});  	
+				self.zoomContainer.bind('click', function(e){ 
+					moveZoomWindow = !moveZoomWindow;
+				});  	
 				if(self.options.zoomType != "inner") {
 					self.zoomLens.bind('mousemove', function(e){      
+	
+						if(!moveZoomWindow)
+							return;
+	
 						//make sure on orientation change the setposition is not fired
 						if(self.lastX !== e.clientX || self.lastY !== e.clientY){
 							self.setPosition(e);
@@ -414,6 +428,10 @@ if ( typeof Object.create !== 'function' ) {
 				}
 				if(self.options.tint && self.options.zoomType != "inner") {
 					self.zoomTint.bind('mousemove', function(e){ 
+
+						if(!moveZoomWindow)
+							return;
+
 						//make sure on orientation change the setposition is not fired
 						if(self.lastX !== e.clientX || self.lastY !== e.clientY){
 							self.setPosition(e);
@@ -426,6 +444,9 @@ if ( typeof Object.create !== 'function' ) {
 				}
 				if(self.options.zoomType == "inner") {
 					self.zoomWindow.bind('mousemove', function(e) {
+
+						if(!moveZoomWindow)
+							return;
 						//self.overWindow = true;
 						//make sure on orientation change the setposition is not fired
 						if(self.lastX !== e.clientX || self.lastY !== e.clientY){
@@ -446,6 +467,9 @@ if ( typeof Object.create !== 'function' ) {
 
 
 				}).mouseleave(function(){
+					if(!moveZoomWindow)
+						return;
+
 					if(!self.scrollLock){
 						self.setElements("hide");
             self.options.onDestroy(self.$elem);
@@ -459,6 +483,9 @@ if ( typeof Object.create !== 'function' ) {
 
 				if(self.options.zoomType != "inner") {
 					self.zoomWindow.mouseenter(function(){
+						if(!moveZoomWindow)
+							return;
+
 						self.overWindow = true;   
 						self.setElements("hide");                  
 					}).mouseleave(function(){
