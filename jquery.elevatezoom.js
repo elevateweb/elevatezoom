@@ -142,6 +142,7 @@ if ( typeof Object.create !== 'function' ) {
 				//calculate the width ratio of the large/small image
 				self.widthRatio = (self.largeWidth/self.currentZoomLevel) / self.nzWidth;
 				self.heightRatio = (self.largeHeight/self.currentZoomLevel) / self.nzHeight; 
+				if(self.widthRatio <= 1 && self.heightRatio <= 1) return false;
 
 
 				//if window zoom        
