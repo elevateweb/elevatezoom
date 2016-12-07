@@ -98,11 +98,21 @@ if ( typeof Object.create !== 'function' ) {
 				var self = this;
 				var newImg = new Image();
 				newImg.onload = function() {
+                    if ( newImg.height < 316 ) {
+                        return;
+                    }
 					//set the large image dimensions - used to calculte ratio's
 					self.largeWidth = newImg.width;
 					self.largeHeight = newImg.height;
-					//once image is loaded start the calls
-					self.startZoom();
+                    //get dimensions of the non zoomed image
+                    self.nzWidth = self.$elem.width();
+                    self.nzHeight = self.$elem.height();
+					//once image is loaded start the calls if necessary
+                    offset = 30;
+                    if (self.nzHeight <= self.largeHeight - offset|| self.nzWidth <= self.largeWidth - offset){
+                        self.startZoom();
+                    }
+
 					self.currentImage = self.imageSrc;
 					//let caller know image has been loaded
 					self.options.onZoomedImageLoaded(self.$elem);
@@ -115,9 +125,6 @@ if ( typeof Object.create !== 'function' ) {
 
 			startZoom: function( ) {
 				var self = this;
-				//get dimensions of the non zoomed image
-				self.nzWidth = self.$elem.width();
-				self.nzHeight = self.$elem.height();
 
 				//activated elements
 				self.isWindowActive = false;
@@ -1182,6 +1189,9 @@ if ( typeof Object.create !== 'function' ) {
 				self.options.onImageSwap(self.$elem);
 
 				newImg.onload = function() {
+                    if ( newImg.height < 316 ) {
+                        return;
+                    }
 					self.largeWidth = newImg.width;
 					self.largeHeight = newImg.height;
 					self.zoomImage = largeimage;
@@ -1288,7 +1298,7 @@ if ( typeof Object.create !== 'function' ) {
 					} 
 				}
 				else{
-					self.$elem.attr("src",smallimage); 
+					self.$elem.children().attr("src",smallimage);
 					if(self.options.tint) {
 						self.zoomTintImage.attr("src",largeimage);
 						//self.zoomTintImage.attr("width",elem.data("image"));
