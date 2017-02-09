@@ -1049,7 +1049,7 @@ if ( typeof Object.create !== 'function' ) {
 											self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
 										}
 										else{   
-											if(self.options.zoomType != "lens"){      
+											if(self.options.zoomType == "lens"){      
 												self.zoomLens.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
 											}            
 											self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });            
