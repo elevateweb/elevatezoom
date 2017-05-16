@@ -568,7 +568,7 @@ if ( typeof Object.create !== 'function' ) {
       
 				var self = this;
         
-        if(!self.options.zoomEnabled){return false;}
+        if(!self.options.zoomEnabled || e === undefined){return false;}
 
 				//recaclc offset each time in case the image moves
 				//this can be caused by other on page elements
