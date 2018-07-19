@@ -335,10 +335,12 @@ if ( typeof Object.create !== 'function' ) {
 				/*-------------------END THE ZOOM WINDOW AND LENS----------------------------------*/
 				//touch events
 				self.$elem.bind('touchmove', function(e){    
-					e.preventDefault();
-					var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
-					self.setPosition(touch);
-
+					if ($(this).data('elevateZoom').options.zoomEnabled) {
+						e.preventDefault();
+						var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
+						self.setPosition(touch);		
+					}
+					
 				});  
 				self.zoomContainer.bind('touchmove', function(e){ 
 					if(self.options.zoomType == "inner") {
